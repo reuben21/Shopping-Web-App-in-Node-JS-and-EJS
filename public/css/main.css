@@ -1,0 +1,15 @@
+.textColorChange {
+    color:#bc6ff1 !important;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+.textColorChange:hover {
+    color: #bc6ff1 !important;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+.navbar-backgroundColor{
+    background-color:#52057b;
+}
