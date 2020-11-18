@@ -9,7 +9,10 @@ var path = require('path');
 var products = [];
 router.get('/add-product', function (req, res, next) {
   console.log("Another  Middleware");
-  res.sendFile(path.join(__dirname, '../', 'views', 'add-product.html'));
+  res.render('add-product', {
+    pageTitle: 'Add Product',
+    path: '/admin/add-product'
+  });
 });
 router.post('/product', function (req, res, next) {
   products.push({

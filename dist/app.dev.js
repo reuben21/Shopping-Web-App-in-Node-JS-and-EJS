@@ -6,9 +6,11 @@ var bodyParser = require('body-parser');
 
 var path = require('path');
 
+var expressHbs = require('express-handlebars');
+
 var app = express();
-app.set('view engine', 'pug');
-app.set('views', 'view');
+app.set('view engine', 'ejs');
+app.set('views', 'views');
 
 var adminData = require('./routes/admin');
 
@@ -21,6 +23,8 @@ app.use(express["static"](path.join(__dirname, 'public')));
 app.use('/admin', adminData.routes);
 app.use(shopRoutes);
 app.use(function (req, res, next) {
-  res.status(404).sendFile(path.join(__dirname, './', 'views', 'errorForNotFound.html'));
+  res.status(404).render('error404', {
+    pageTitle: 'Page Not Found'
+  });
 });
 app.listen(3000);
