@@ -1,15 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Antic+Slab&display=swap');
+
+html,body {
+    font-family: 'Antic Slab', serif;
+}
+h1 {
+    font-weight: bold;
+    color: #52057b;
+}
+
+.input-group>.form-control, .input-group>.form-select {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    box-shadow: 5px 5px #bc6ff1;
+    outline:none;
+    border: 1px solid #bc6ff1;
+}
+
+
 .textColorChange {
     color:#bc6ff1 !important;
     text-decoration: none;
-    font-weight: bolder;
+    font-weight: lighter;
 }
 
 .textColorChange:hover {
     color: #bc6ff1 !important;
     text-decoration: none;
-    font-weight: bolder;
+    font-weight: lighter;
 }
 
 .navbar-backgroundColor{
     background-color:#52057b;
+}
+
+@media (min-width: 1006px) {
+    .col-sm {
+        flex: 0.5 0 0%;
+    }
 }
