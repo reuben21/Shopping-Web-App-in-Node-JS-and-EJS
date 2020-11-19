@@ -30,7 +30,11 @@ h1 {
     text-decoration: none;
     font-weight: lighter;
 }
-
+.textColorChange_active {
+    color:white !important;
+    text-decoration: none;
+    font-weight: lighter;
+}
 .navbar-backgroundColor{
     background-color:#52057b;
 }
