@@ -1,3 +1,3 @@
-# starting-with-Node-JS
+# Starting with Node JS
 
 ## creating a basic node js web application 
