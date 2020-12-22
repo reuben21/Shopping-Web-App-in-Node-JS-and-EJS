@@ -24,7 +24,21 @@ exports.getProducts = (req, res, next) => {
     );
 
 }
+exports.getSingleProduct = (req, res, next) => {
+   const product_id = req.params.productId;
+   console.log(product_id);
+    Product.findById(product_id, product => {
+        console.log(product)
+    })
+res.render('shop/product-detail', {
+    prods: product_id,
+    pageTitle: 'Shop',
+    path: '/product-detail',
 
+    });
+      
+
+}
 exports.getIndex = (req, res, next)=>{
     Product.fetchAll(
         products => {

@@ -6,6 +6,9 @@
   <main>
     <% if (prods.length > 0) { %>
     <% for (let product of prods) { %>
+      <a href="/products/<%= product.id  %> " style="text-decoration: none;color: #52057b;" >
+        
+      
     <div class="card" style="width: 18rem;">
       <img src="<%= product.image_url %> " class="card-img-top rounded mx-auto d-block"
         alt="..." style="width: 290px;height: 200px;object-fit: cover;
@@ -30,6 +33,7 @@
        
       </div>
     </div>
+  </a>
     <%   } %>
     <% } else {  %>
     <h1>No Products Found</h1>
