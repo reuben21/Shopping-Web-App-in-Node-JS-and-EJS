@@ -1,8 +1,8 @@
-<%- include('includes/head.ejs') %> 
+<%- include('../includes/head.ejs') %>
 
-<%- include('includes/navigation.ejs') %> 
+<%- include('../includes/navigation.ejs') %>
 <body>
- 
+
   <main>
     <% if (prods.length > 0) { %>
     <% for (let product of prods) { %>
@@ -19,8 +19,8 @@
     <h1>No Products Found</h1>
     <%   } %>
   </main>
- 
-  <%- include('includes/end.ejs') %> 
+
+  <%- include('../includes/end.ejs') %>
 </body>
 
 </html>
