@@ -7,11 +7,23 @@
     <% if (prods.length > 0) { %>
     <% for (let product of prods) { %>
     <div class="card" style="width: 18rem;">
-      <img src="https://www.applesfromny.com/wp-content/uploads/2020/05/Jonagold_NYAS-Apples2.png" class="card-img-top"
+      <img src="<%= product.image_url %> " class="card-img-top"
         alt="...">
-      <div class="card-body">
+      <div class="card-body" style="
+      display:flex;
+      justify-content:center;
+      flex-direction: column;
+      align-items: center;">
         <h5 class="card-title"><%= product.title %> </h5>
-        <p class="card-text">Price: <%= product.price %> </p>
+        <p class="card-text">Price:$ <%= product.price %> </p>
+        <button class="btn" style="
+        color: #ffffff;
+        background-color: #52057b;
+        box-shadow: none;
+        ">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABN0lEQVRIS72V0TUEQRBF342AEFYEyIAIyACf+EAGRGB/8IkIkAERWBEgAkTwnN6zM6f1zkz3GqN+a7puvX5VPWjgYOD6+j+AbUdqxsDJX6irFSSAUHsTeOwLmbsi28eSziU9ANtDAJYlfcwKrwBvfSCNJtu+kbTTo/AEWA/n2wBrkp57AN6BUSsgJGxPJK02QYBpYw2DUX1+BpzmALuSrn8JqL3rXDTbn5KWKkjVeQpNlDwBG/WZrnu2PZZ0tCBgDwhDMo2cgmDUa9pEhwdfkkZAUJ4HzIy8l7QVQzoAt0Dwro7sY2c7bPNd4cjOPS9ZQG5kI/ALEPbnRxQBCrtv/KwIYPtC0r6kK+AwrtSVy05RVSie83QXunKLAC4jBQeJgtZcMWBmdGg+/uvVHNutuSIPBje5D+AbgJODGZ08N4EAAAAASUVORK5CYII="/>
+          Add To Cart
+        </button>
       </div>
     </div>
     <%   } %>

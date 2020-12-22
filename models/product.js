@@ -33,7 +33,9 @@ module.exports = class Product {
             products.push(
                 {
                     title: this.title,
-                    price: this.price
+                    price: this.price,
+                    image_url: this.imgUrl,
+                    description: this.description
                 });
 
 

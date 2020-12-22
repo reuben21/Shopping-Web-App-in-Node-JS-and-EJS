@@ -9,7 +9,11 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-    const product = new Product(req.body.product_name,req.body.product_price)
+
+    const product = new Product(req.body.product_name
+        ,req.body.product_price
+        ,req.body.product_image_url
+        ,req.body.product_description)
     product.save();
     // products.push({
     //     title: req.body.product_name,
