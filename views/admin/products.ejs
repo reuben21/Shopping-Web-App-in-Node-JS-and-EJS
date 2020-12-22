@@ -9,9 +9,32 @@
     <div class="card" style="width: 18rem;">
       <img src="<%= product.image_url %> " class="card-img-top"
         alt="...">
-      <div class="card-body">
+      <div class="card-body" style="
+      display:flex;
+      justify-content:center;
+      flex-direction: column;
+      align-items: center;">
         <h5 class="card-title"><%= product.title %> </h5>
-        <p class="card-text">Price: <%= product.price %> </p>
+        <p class="card-text">Price:$ <%= product.price %> </p>
+        <div>
+          <a class="btn" style="
+          color: #ffffff;
+          background-color: #52057b;
+          box-shadow: none;width:100px;
+          " href="/admin/edit-product">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABIklEQVRIS82VsU0EMRBF/6sAIQqAEhARIQUQUQFEFEEAl9AABUAR5BASIUrgIlJiko+8urWM8bL27q3ExOP/Zv6MNWjhYGF9bQ1g+0bSF3CbFv0DYPtE0r2kg5HOLoCHPsf2taQACHGVQnLAu6T9RvFjSY+S9pJ3EZIDHJKAKutsHwGvtnPICug6mgzY2HIp6TSD3AGrvptJgMzzjxQCvPw15FGLMvFeK0DOcvFmiwbEg070PF+QaotqxW0fAm9NM2gRl/QE7FYDasWDoO1PSTvpmo9aZLsbfBZFz/vcuYDBgW4DMCi+sejXmtdYFHOAkl3RvUkdtNyLfwHo1qyl6kLuGoj3pHRwwiEZuwlDNawlnQPPxY82s/Li86rDMge8OOAbRDbKGYeqI/0AAAAASUVORK5CYII="/>
+            Edit
+          </a>
+          <a class="btn" style="
+          color: #ffffff;
+          background-color: #52057b;
+          box-shadow: none;width:100px;
+          " href="/admin/delete-product">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABbklEQVRIS71V0VXDMBCTJgEmgE4AI8AEsAHtJLQTABNQNoAJaDdoJ1Gf+uzgOE7cAOHe80fsy+l0vpOJiY0Tx0cVQNIDgGsAV2E5p01Ya5LvQ0n2Aki6BfAE4LzCcgdgQXJd8isCSFoCeAw/7AH4+4OkM4cks7kBMAdwFvyWJBc5SAcgC+7MHLzXJBnETG0rkv5urAUQyvIWTmcx41ojBEZfwe8uLVcO4HqacjXzHDRhsiN5Ec8bgNAtzwD2JGsXWyQlKSbYsEgBXgDc/yT7iJaweCXp9v6eA0nukEsAJ9e+UCZ3l+9iQ3KWA+i4Qaasjns1K/0T9zrBpgT4yxJtSbpcrTuY/JKtPR6yVh/X6p+eD7apHROH3wxaa47+VyoCi1RJ5yRXQ2UaJXbJRKYgHn9/f2Zy7UfIyhllpaOkrS4qTKUv3YGj3vcR8Xthpqc/OFlnGMjLfW0psW2TJ7MYuKOmY9pxjG/10R8TrOR7ABtvwhk8/vv+AAAAAElFTkSuQmCC"/>
+            Delete
+          </a>
+        </div>
+        
       </div>
     </div>
     <%   } %>
