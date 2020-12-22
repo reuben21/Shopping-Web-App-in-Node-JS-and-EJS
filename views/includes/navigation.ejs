@@ -21,7 +21,8 @@
                    href="/admin/products">Admin Products</a>
               </li>
               <li class="nav-item" style="margin-left:20px;">
-                <a class="nav-link textColorChange" href="#">Products</a>
+                <a class="nav-link textColorChange <%= path === '/products' ? 'textColorChange_active' : '' %>"
+                   href="/products">Products</a>
               </li>
               <li class="nav-item" style="margin-left:20px;">
                 <a class="nav-link textColorChange <%= path === '/cart' ? 'textColorChange_active' : '' %>"
