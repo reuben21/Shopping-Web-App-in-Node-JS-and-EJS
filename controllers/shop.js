@@ -29,13 +29,14 @@ exports.getSingleProduct = (req, res, next) => {
    console.log(product_id);
     Product.findById(product_id, product => {
         console.log(product)
+        res.render('shop/product-detail', {
+            prods: product,
+            pageTitle: 'Shop',
+            path: '/product-detail',
+        
+            });
     })
-res.render('shop/product-detail', {
-    prods: product_id,
-    pageTitle: 'Shop',
-    path: '/product-detail',
 
-    });
       
 
 }

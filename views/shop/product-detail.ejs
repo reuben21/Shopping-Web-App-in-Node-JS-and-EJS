@@ -9,16 +9,26 @@
               flex-direction:column;">
     <div class="card text-center">
       <div class="card-header">
-        Featured
+        <img src="<%= prods.image_url %> " class="img-fluid" style="max-width:300px;" alt="...">
+      
       </div>
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title"><%= prods.title %> </h5>
+        <p class="card-text" style="width:300px;"><%= prods.description %> </p>
+        <form action="/add-to-cart" method="POST">
+          <button class="btn" style="
+          color: #ffffff;
+          background-color: #52057b;
+          box-shadow: none;
+          ">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABN0lEQVRIS72V0TUEQRBF342AEFYEyIAIyACf+EAGRGB/8IkIkAERWBEgAkTwnN6zM6f1zkz3GqN+a7puvX5VPWjgYOD6+j+AbUdqxsDJX6irFSSAUHsTeOwLmbsi28eSziU9ANtDAJYlfcwKrwBvfSCNJtu+kbTTo/AEWA/n2wBrkp57AN6BUSsgJGxPJK02QYBpYw2DUX1+BpzmALuSrn8JqL3rXDTbn5KWKkjVeQpNlDwBG/WZrnu2PZZ0tCBgDwhDMo2cgmDUa9pEhwdfkkZAUJ4HzIy8l7QVQzoAt0Dwro7sY2c7bPNd4cjOPS9ZQG5kI/ALEPbnRxQBCrtv/KwIYPtC0r6kK+AwrtSVy05RVSie83QXunKLAC4jBQeJgtZcMWBmdGg+/uvVHNutuSIPBje5D+AbgJODGZ08N4EAAAAASUVORK5CYII="/>
+            Add To Cart
+          </button>
+        </form>
       </div>
-      <div class="card-footer text-muted">
+      <!-- <div class="card-footer text-muted">
         2 days ago
-      </div>
+      </div> -->
     </div>
 </main>
 
