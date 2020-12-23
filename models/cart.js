@@ -37,7 +37,7 @@ module.exports = class Cart {
             if(err) {
                 return;
             }
-            const updatedCart = { ...cart};
+            const updatedCart = { ...fileContent};
             const product  =  updatedCart.products.find(p => p.id === id);
             const productQty = product.qty;
             updatedCart.products = updatedCart.products.filter(product => product.id !== id );
