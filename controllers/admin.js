@@ -24,6 +24,18 @@ exports.postAddProduct = (req, res, next) => {
     res.redirect(`/`);
 }
 
+exports.getDeleteProduct = (req, res, next) => {
+    const deleteMode = Boolean(req.query.delete);
+    const product_id = req.params.productId;
+    console.log(product_id,deleteMode)
+    if(deleteMode) {
+        Product.deleteById(product_id);
+        res.redirect(`/admin/products`);
+    } else {
+        res.redirect(`/admin/products`);
+    }
+  
+}
 exports.getEditProduct = (req, res, next) => {
     const editMode = Boolean(req.query.edit);
     console.log(editMode)
