@@ -3,7 +3,7 @@
 html,body {
     font-family: 'Antic Slab', serif;
 }
-h1 {
+h1,h4 {
     font-weight: bold;
     color: #52057b;
 }
