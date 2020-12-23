@@ -1,6 +1,8 @@
 # Starting with Node JS
 
-## creating a basic node js web application 
+## Creating a Node js web application 
+
+## A Basic Shopping Web Application
 
 ### Following The MVC Pattern
 - Model - representing your data
