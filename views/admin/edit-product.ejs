@@ -1,0 +1,51 @@
+<%- include('../includes/head.ejs') %>
+
+<%- include('../includes/navigation.ejs') %>
+<body>
+
+<main>
+    <div style="display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;">
+        <div>
+
+            <div class="col-sm">
+              <h1 style="margin: 10px 38%;">Add A Product</h1>
+                <form action="/admin/<% if (editing){ %>add-product<% } else { %>edit-product<% } %>" method="POST">
+
+                    <div class="input-group mb-3">
+                        <input type="text" placeholder="Product Name" value="<% if (editing){ %> <%=product.title   %> <% } else { %>""<% } %>" name="product_name" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" placeholder="Product Price" value="<% if (editing){ %> <%= product.price   %> <% } else { %>""<% } %>" name="product_price" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" placeholder="Image URL" value="<% if (editing){ %> <%= product.image_url   %> <% } else { %>""<% } %>" name="product_image_url" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <textarea placeholder="Description" name="product_description" class="form-control" rows="5"
+                               aria-describedby="inputGroup-sizing-default"><% if (editing){ %> <%=product.description  %> <% } else { %>""<% } %></textarea>
+                    </div>
+                    <button class="btn" style="color: #bc6ff1;background-color: #52057b;" type="submit">
+                        <% if (editing){ %>
+                            Update Product
+                            <% } else { %>
+                            Add Product
+                            <% } %> 
+                    </button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+<%- include('../includes/end.ejs') %>
+</body>
+</html>
