@@ -20,16 +20,7 @@
       align-items: center;">
         <h5 class="card-title"><%= product.title %> </h5>
         <p class="card-text">Price:$ <%= product.price %> </p>
-        <form action="/add-to-cart" method="POST">
-          <button class="btn" style="
-          color: #ffffff;
-          background-color: #52057b;
-          box-shadow: none;
-          ">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABN0lEQVRIS72V0TUEQRBF342AEFYEyIAIyACf+EAGRGB/8IkIkAERWBEgAkTwnN6zM6f1zkz3GqN+a7puvX5VPWjgYOD6+j+AbUdqxsDJX6irFSSAUHsTeOwLmbsi28eSziU9ANtDAJYlfcwKrwBvfSCNJtu+kbTTo/AEWA/n2wBrkp57AN6BUSsgJGxPJK02QYBpYw2DUX1+BpzmALuSrn8JqL3rXDTbn5KWKkjVeQpNlDwBG/WZrnu2PZZ0tCBgDwhDMo2cgmDUa9pEhwdfkkZAUJ4HzIy8l7QVQzoAt0Dwro7sY2c7bPNd4cjOPS9ZQG5kI/ALEPbnRxQBCrtv/KwIYPtC0r6kK+AwrtSVy05RVSie83QXunKLAC4jBQeJgtZcMWBmdGg+/uvVHNutuSIPBje5D+AbgJODGZ08N4EAAAAASUVORK5CYII="/>
-            Add To Cart
-          </button>
-        </form>
+        <%- include('../includes/add-to-cart.ejs',{product:product.id}) %>
        
       </div>
     </div>
