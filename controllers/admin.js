@@ -11,7 +11,7 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
 
-    const product = new Product(req.body.product_name
+    const product = new Product(null,req.body.product_name
         ,parseFloat(req.body.product_price)
         ,req.body.product_image_url
         ,req.body.product_description)
@@ -20,7 +20,7 @@ exports.postAddProduct = (req, res, next) => {
     //     title: req.body.product_name,
     //     price: req.body.product_price
     // })
-    console.log(product)
+    // console.log(product)
     res.redirect(`/`);
 }
 
@@ -45,6 +45,19 @@ exports.getEditProduct = (req, res, next) => {
 
     })
     
+};
+
+exports.postEditProduct = (req, res, next) =>{
+   
+    const updatedProduct = new Product(
+        req.body.product_id
+        ,req.body.product_name
+        ,parseFloat(req.body.product_price)
+        ,req.body.product_image_url
+        ,req.body.product_description)
+        console.log(updatedProduct)
+        updatedProduct.save();
+    res.redirect('/admin/products');
 };
 
 exports.getAllProducts = (req, res, next) => {
