@@ -15,13 +15,19 @@ exports.postAddProduct = (req, res, next) => {
         ,parseFloat(req.body.product_price)
         ,req.body.product_image_url
         ,req.body.product_description)
-    product.save();
+    product.save().then(result=>{
+        console.log("Created product")
+        res.redirect(`/admin/products`);
+    })
+    .catch(err=>{
+        console.log(err)
+    });
     // products.push({
     //     title: req.body.product_name,
     //     price: req.body.product_price
     // })
     // console.log(product)
-    res.redirect(`/`);
+    
 }
 
 exports.getDeleteProduct = (req, res, next) => {
@@ -73,15 +79,17 @@ exports.postEditProduct = (req, res, next) =>{
 };
 
 exports.getAllProducts = (req, res, next) => {
-    Product.fetchAll(
+    Product.fetchAll().then(
         products => {
-            res.render('admin/products', {
-                prods: products,
-                pageTitle: 'Shop',
-                path: '/products',
+           res.render('admin/products', {
+               prods: products,
+               pageTitle: 'Shop',
+               path: '/products',
 
-              });
-        }
-    );
-
+             });
+       }
+   ).catch(err => {
+       console.log(err);
+   });
+ 
 }

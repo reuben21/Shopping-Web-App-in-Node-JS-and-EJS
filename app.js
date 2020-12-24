@@ -9,6 +9,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views','views');
 
+const {mongoConnect} = require('./util/database')
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -30,5 +31,8 @@ app.use(errorController.get404)
 //     });
 // };
 
+mongoConnect(()=>{
+    
+    app.listen(3000);
+})
 
-app.listen(3000);

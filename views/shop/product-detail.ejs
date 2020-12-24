@@ -15,7 +15,7 @@
       <div class="card-body">
         <h5 class="card-title"><%= prods.title %> </h5>
         <p class="card-text" style="width:300px;"><%= prods.description %> </p>
-        <%- include('../includes/add-to-cart.ejs',{product:prods.id}) %>
+        <%- include('../includes/add-to-cart.ejs',{product:prods._id}) %>
       </div>
       <!-- <div class="card-footer text-muted">
         2 days ago
