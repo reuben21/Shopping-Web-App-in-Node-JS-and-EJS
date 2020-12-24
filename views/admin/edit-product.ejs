@@ -28,7 +28,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <textarea placeholder="Description" name="product_description" class="form-control" rows="5"
-                               aria-describedby="inputGroup-sizing-default"><% if (editing){ %> <%=product.description  %> <% } else { %>""<% } %></textarea>
+                               aria-describedby="inputGroup-sizing-default"><% if (editing){ %> <%=product.description  %> <% } else { %><% } %></textarea>
                     </div>
                     <% if (editing){ %>
                         <input type="hidden" value="<%= product._id %>" name="product_id">

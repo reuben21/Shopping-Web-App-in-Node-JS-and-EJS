@@ -18,6 +18,16 @@ const errorController = require('./controllers/error')
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'public')))
 
+app.use((req, res,next)=>{
+    User.findById("5fe4a8e2c409135c1839c35a")
+    .then(user => {
+        req.user = user;
+        next();
+    }).catch(err => {
+        console.log(err);
+    });
+    next();
+})
 
 app.use('/admin',adminRoutes);
 

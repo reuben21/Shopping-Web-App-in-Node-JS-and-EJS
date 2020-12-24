@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-
+const mongodb = require('mongodb');
 exports.getAddProduct = (req, res, next) => {
     console.log("Another  Middleware")
     res.render('admin/edit-product', {
@@ -14,7 +14,7 @@ exports.postAddProduct = (req, res, next) => {
     const product = new Product(null,req.body.product_name
         ,parseFloat(req.body.product_price)
         ,req.body.product_image_url
-        ,req.body.product_description)
+        ,req.body.product_description,null)
     product.save().then(result=>{
         console.log("Created product")
         res.redirect(`/admin/products`);
@@ -35,8 +35,10 @@ exports.getDeleteProduct = (req, res, next) => {
     const product_id = req.params.productId;
     console.log(product_id,deleteMode)
     if(deleteMode) {
-        Product.deleteById(product_id);
-        res.redirect(`/admin/products`);
+        Product.deleteById(product_id).then(() =>{
+            res.redirect(`/admin/products`);
+        });
+        
     } else {
         res.redirect(`/admin/products`);
     }
@@ -76,8 +78,14 @@ exports.postEditProduct = (req, res, next) =>{
         ,req.body.product_image_url
         ,req.body.product_description)
         console.log(updatedProduct)
-        updatedProduct.save();
-    res.redirect('/admin/products');
+        updatedProduct.save().then(result=>{
+            console.log("updatedProduct product")
+            res.redirect(`/admin/products`);
+        })
+        .catch(err=>{
+            res.redirect('/admin/products');
+        });
+    
 };
 
 exports.getAllProducts = (req, res, next) => {
