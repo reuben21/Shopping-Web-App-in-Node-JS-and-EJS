@@ -31,7 +31,7 @@
                                aria-describedby="inputGroup-sizing-default"><% if (editing){ %> <%=product.description  %> <% } else { %>""<% } %></textarea>
                     </div>
                     <% if (editing){ %>
-                        <input type="hidden" value="<%= product.id %>" name="product_id">
+                        <input type="hidden" value="<%= product._id %>" name="product_id">
                         <% }%>
                        
                        

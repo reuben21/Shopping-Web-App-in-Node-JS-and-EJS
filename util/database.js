@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 let _db;
-
+let _client;
 const uri = "mongodb+srv://user_for_node:7uFBJ7025U5qD5Av@mongodb.syifj.mongodb.net/Shopping_Store?retryWrites=true&w=majority";
 
 const mongoConnect =(callback)=>{
@@ -9,7 +9,8 @@ const mongoConnect =(callback)=>{
     MongoClient.connect(uri, { useNewUrlParser: true,useUnifiedTopology: true })
     .then(client =>{
         console.log("Connected")
-        _db = client.db()
+        _client = client;
+        _db = client.db();
         callback(client);
     })
     .catch(err=>{
@@ -25,5 +26,14 @@ const getDb =() =>{
     throw 'No Database Found'
 };
 
+const getClient =() =>{
+    if (_client) {
+        return _client;
+    }
+    throw 'No Client Found'
+};
+
+exports.uri = uri;
 exports.mongoConnect = mongoConnect;
 exports.getDb = getDb;
+exports.getClient = getClient;
