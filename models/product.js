@@ -26,12 +26,7 @@ module.exports = class Product {
         const db = getDb();
         let dbOp;
         if (this._id === null) {
-            return db.collection("products").insertOne({
-                title:this.title,
-                price:this.price,
-                image_url:this.image_url,
-                description:this.description
-            }).then(result=>{
+            return db.collection("products").insertOne(this).then(result=>{
                
             }).catch(err => {s
                 console.log(err);

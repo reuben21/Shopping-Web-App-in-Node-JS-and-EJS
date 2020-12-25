@@ -15,18 +15,19 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error')
 
+const User = require('./models/user');
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'public')))
 
 app.use((req, res,next)=>{
     User.findById("5fe4a8e2c409135c1839c35a")
     .then(user => {
-        req.user = user;
+        req.user =new User (user.username,user.email,user.password,user.cart,user._id);
         next();
     }).catch(err => {
         console.log(err);
     });
-    next();
 })
 
 app.use('/admin',adminRoutes);
