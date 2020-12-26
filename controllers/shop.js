@@ -90,9 +90,14 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req,res,next)=>{
     const product_id = req.body.product_id;
     console.log(product_id)
-    Product.findById(product_id,(product)=>{
-        Cart.addProduct(product_id,product.price)
-    })
+    Product.findById(product_id).then((product)=>{
+        return req.user.addToCart(product);
+        // Cart.addProduct(product_id,product.price)
+    }).then(result=>{
+        console.log(result);
+    }
+        
+        )
     res.redirect('/');
 }
 

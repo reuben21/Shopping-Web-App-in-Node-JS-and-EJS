@@ -26,15 +26,40 @@ class User {
     }
 
     addToCart(product) {
-        // const cartProduct = this.cart.items.findIndex(cp =>{
-        //     return cp._id === product._id
-        // });
-
-    
-        const updatedCart = {items: [{ ...product, quantity:1 }]};
+        const cartProductIndex = this.cart.items.findIndex(cp =>{
+            console.log(cp.product_id.toString()===product._id.toString())
+            return cp.product_id.toString() === product._id.toString();
+        });
+        let newQuantity = 1;
+        const updatedCartItems = [...this.cart.items]
+        console.log(cartProductIndex);
+        if (cartProductIndex >= 0)  {
+            newQuantity = this.cart.items[cartProductIndex].quantity +1;
+            updatedCartItems[cartProductIndex].quantity = newQuantity;
+        } else {
+            updatedCartItems.push({
+            product_id: new mongodb.ObjectId(product._id),
+             quantity:newQuantity
+            })
+        }
+        
+       
+        const updatedCart = {
+            items: updatedCartItems
+        };
         const db = getDb();
-        if (this._id === null) {
-            return db.collection("users").updateOne({_id:new mongodb.ObjectId(this._id)},{ $set:{cart:updatedCart}}).then(result=>{
+        
+        if (this._id !== null) {
+            
+            return db.collection("users").updateOne(
+                {_id:new mongodb.ObjectId(this._id)},
+                { $set:
+                    {
+                        cart:updatedCart
+                    }
+                }
+                ).then(result=>{
+                    
             }).catch(err => {
                 console.log(err);
             });  
@@ -45,7 +70,6 @@ class User {
         return db.collection("users")
         .findOne({_id:new mongodb.ObjectId(user_id)})
         .then(user => {
-            console.log(user)
             return user;
         }).catch(err => {
             console.log(err);
