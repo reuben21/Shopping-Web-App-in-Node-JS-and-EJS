@@ -59,7 +59,7 @@ exports.getIndex = (req, res, next)=>{
 }
 
 exports.getCart = (req, res, next) => {
-    Cart.getCart(cart =>{
+    req.user.cart.getCart(cart =>{
         Product.fetchAll( products => {
             const cartProducts = [];
             for (each_product in products) {
