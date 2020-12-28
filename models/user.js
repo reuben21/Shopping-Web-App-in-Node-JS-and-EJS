@@ -84,6 +84,20 @@ p
         })
         // return this.cart;
     }
+
+    deleteItemFromCart(product_id) {
+        const updatedCartItems = this.cart.items.filter(item=>{
+            console.log(item.product_id.toString(),product_id.toString())
+        return item.product_id.toString() !== product_id.toString(); 
+        })
+        const db = getDb();
+        return db.collection("users")
+                .updateOne({
+                    _id: new mongodb.ObjectId(this._id)},
+                    {$set: {cart:{items: updatedCartItems}}}
+                );
+
+    }
     static findById(user_id){
         const db = getDb();
         return db.collection("users")
