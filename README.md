@@ -19,3 +19,10 @@
 
 - Passing Dynamic Paths
 - Optional Query Paramters can also be passed
+
+### Using MongoDB for storing the Database
+
+#### Collections -
+- Users
+- Products
+- Orders

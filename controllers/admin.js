@@ -1,7 +1,7 @@
 const Product = require('../models/product');
 const mongodb = require('mongodb');
 exports.getAddProduct = (req, res, next) => {
-    console.log("Another  Middleware")
+    // console.log("Another  Middleware")
     res.render('admin/edit-product', {
         pageTitle: 'Add Product',
         path: '/admin/add-product',
@@ -10,7 +10,7 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-    console.log(req.user);
+    // console.log(req.user);
     const product = new Product(null,req.body.product_name
         ,parseFloat(req.body.product_price)
         ,req.body.product_image_url
@@ -34,7 +34,7 @@ exports.postAddProduct = (req, res, next) => {
 exports.getDeleteProduct = (req, res, next) => {
     const deleteMode = Boolean(req.query.delete);
     const product_id = req.params.productId;
-    console.log(product_id,deleteMode)
+
     if(deleteMode) {
         Product.deleteById(product_id).then(() =>{
             res.redirect(`/admin/products`);
@@ -47,7 +47,6 @@ exports.getDeleteProduct = (req, res, next) => {
 }
 exports.getEditProduct = (req, res, next) => {
     const editMode = Boolean(req.query.edit);
-    console.log(editMode)
     if(!editMode){
         res.redirect('/')
     }
@@ -78,7 +77,7 @@ exports.postEditProduct = (req, res, next) =>{
         ,parseFloat(req.body.product_price)
         ,req.body.product_image_url
         ,req.body.product_description)
-        console.log(updatedProduct)
+
         updatedProduct.save().then(result=>{
             console.log("updatedProduct product")
             res.redirect(`/admin/products`);

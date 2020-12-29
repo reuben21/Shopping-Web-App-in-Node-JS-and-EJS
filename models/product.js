@@ -74,7 +74,7 @@ module.exports = class Product {
         return db.collection("products")
         .find({_id:new mongodb.ObjectId(id)}).next()
         .then(product=>{
-            console.log(product)
+            // console.log(product)
             return product
         })
         .catch(err=>{
@@ -88,7 +88,7 @@ module.exports = class Product {
         return db.collection("products")
         .deleteOne({_id:new mongodb.ObjectId(id)})
         .then(result=>{
-            console.log("Deleted")
+            // console.log("Deleted")
         })
         .catch(err=>{
             console.log(err);
