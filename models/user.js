@@ -98,6 +98,36 @@ p
                 );
 
     }
+
+
+    addOrder() {
+
+        const db =getDb();
+        return this.getCart().then(products=>{
+            const order = {
+                items:products,
+                user :{
+                    _id:new mongodb.ObjectId(this._id),
+                    email: this.email
+                }
+            };
+            return db.collection('orders')
+            .insertOne(order);
+        }).then(result =>{
+            this.cart = {items:[]};
+            return db.collection('users').updateOne(
+                {_id : new mongodb.ObjectId(this._id)},
+                {$set: {cart:{items:[]}}}
+            );
+        });
+
+    }
+
+    getOrder() {
+        const db = getDb();
+
+    }
+
     static findById(user_id){
         const db = getDb();
         return db.collection("users")

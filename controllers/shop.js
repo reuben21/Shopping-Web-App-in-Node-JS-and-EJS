@@ -60,7 +60,7 @@ exports.getIndex = (req, res, next)=>{
 
 exports.getCart = (req, res, next) => {
     req.user.getCart().then(products => {
-        console.log(products)
+        
             res.render('shop/cart', {
                 pageTitle: 'Your Cart',
                 path: '/cart',
@@ -68,8 +68,7 @@ exports.getCart = (req, res, next) => {
                 // totalPrice:cart.totalPrice
               });
         }).catch(err => console.log(err));
-
-    }
+}
    
 
 
@@ -95,7 +94,20 @@ exports.getDeleteItemFromCart = (req, res, next) => {
    
     
 }
-
+exports.postOrders = (req, res, next) => {
+    let fetchedCart ;
+    req.user
+    .addOrder()
+    .then(
+        result=>{
+            console.log(result);
+        res.redirect('/orders')
+    }).catch(err => console.log(err));
+    // res.render('shop/orders', {
+    //     pageTitle: 'Orders',
+    //     path: '/orders',
+    //   });
+}
 exports.getOrders = (req, res, next) => {
     res.render('shop/orders', {
         pageTitle: 'Orders',
