@@ -12,7 +12,7 @@ const Cart = require('../models/cart');
 // }
 
 exports.getProducts = (req, res, next) => {
-    Product.fetchAll().then(
+    Product.find().then(
          products => {
             res.render('shop/product-list', {
                 prods: products,
@@ -35,15 +35,15 @@ exports.getSingleProduct = (req, res, next) => {
             prods: product,
             pageTitle: 'Shop',
             path: '/product-detail',
-        
+
             });
     })
 
-      
+
 
 }
 exports.getIndex = (req, res, next)=>{
-    Product.fetchAll().then(
+    Product.find().then(
         products => {
            res.render('shop/product-list', {
                prods: products,
@@ -59,7 +59,7 @@ exports.getIndex = (req, res, next)=>{
 
 exports.getCart = (req, res, next) => {
     req.user.getCart().then(products => {
-        
+
             res.render('shop/cart', {
                 pageTitle: 'Your Cart',
                 path: '/cart',
@@ -68,7 +68,7 @@ exports.getCart = (req, res, next) => {
               });
         }).catch(err => console.log(err));
 }
-   
+
 
 
 exports.postCart = (req,res,next)=>{
@@ -79,7 +79,7 @@ exports.postCart = (req,res,next)=>{
     }).then(result=>{
         console.log(result);
     }
-        
+
         )
     res.redirect('/');
 }
@@ -89,8 +89,8 @@ exports.getDeleteItemFromCart = (req, res, next) => {
     req.user.deleteItemFromCart(product_id).then(result=>{
         res.redirect('/cart');
     }).catch(err => console.log(err));
-   
-    
+
+
 }
 exports.postOrders = (req, res, next) => {
     let fetchedCart ;
@@ -114,7 +114,7 @@ exports.getOrders = (req, res, next) => {
             orders:orders
           });
     })
-   
+
 }
 exports.getCheckout = (req, res, next) => {
     res.render('shop/checkout', {
