@@ -2,7 +2,7 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 let _db;
 let _client;
-const uri = "mongodb+srv://user_for_node:7uFBJ7025U5qD5Av@mongodb.syifj.mongodb.net/Shopping_Store?retryWrites=true&w=majority";
+const uri = "";
 
 const mongoConnect =(callback)=>{
 
