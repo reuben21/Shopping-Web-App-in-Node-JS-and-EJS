@@ -1,11 +1,12 @@
 const Product = require('../models/product');
-const mongodb = require('mongodb');
+
 exports.getAddProduct = (req, res, next) => {
     // console.log("Another  Middleware")
     res.render('admin/edit-product', {
         pageTitle: 'Add Product',
         path: '/admin/add-product',
-        editing:false
+        editing:false,
+        isAuthenticated:req.isLoggedIn
     })
 };
 
@@ -110,6 +111,7 @@ exports.getAllProducts = (req, res, next) => {
                prods: products,
                pageTitle: 'Shop',
                path: '/products',
+               isAuthenticated:req.isLoggedIn
 
              });
        }
