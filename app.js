@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const session = require('express-session');
 const expressHbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const app = express();
@@ -20,18 +21,22 @@ const User = require('./models/user');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'public')))
 
-app.use((req, res,next)=>{
+app.use((req, res, next) => {
     User.findById("5ffa7b7f66acfb081e7c8495")
-    .then(user => {
-        req.user = user;
-        next();
-    }).catch(err => {
+        .then(user => {
+            req.user = user;
+            next();
+        }).catch(err => {
         console.log(err);
     });
 })
 
-app.use('/admin',adminRoutes);
-
+app.use('/admin', adminRoutes);
+app.use(session({
+    secret: 'reubencoutinho',
+    resave: false,
+    saveUninitialized: false
+}))
 app.use(shopRoutes);
 app.use(authRoutes);
 app.use(errorController.get404)

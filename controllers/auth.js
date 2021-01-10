@@ -1,13 +1,13 @@
 const User = require('../models/user');
 
 exports.getLogin = (req, res, next) => {
-
+    // console.log(req.get('Cookie'));
         res.render('auth/auth', {
             path:'/login',
             pageTitle: 'Login',
             register:false,
             registerComplete:false,
-            isAuthenticated:req.isLoggedIn
+            isAuthenticated:req.session.isLoggedIn
         });
 
 }
@@ -19,7 +19,7 @@ exports.getRegister = (req, res, next) => {
         pageTitle: 'Register',
         register:true,
         registerComplete:false,
-        isAuthenticated:req.isLoggedIn
+        isAuthenticated:req.session.isLoggedIn
 
     });
 
@@ -68,7 +68,9 @@ exports.postLogin = (req, res, next) => {
         user_email,
         user_password)
 
-    req.isLoggedIn = true;
+    req.session.isLoggedIn = true;
+    // res.setHeader('Set-Cookie','logedIn=true');
+    // req.isLoggedIn = true;
 
     res.redirect('/');
     // user.save().then(result=>{
