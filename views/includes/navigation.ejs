@@ -44,26 +44,27 @@
                 <a class="nav-link textColorChange <%= path === '/login' ? 'textColorChange_active' : '' %>"
                    href="/login">Login</a>
               </li>
-              <li class="nav-item" style="margin-left:20px;">
-                <a class="nav-link textColorChange <%= path === '/register' ? 'textColorChange_active' : '' %>"
-                   href="/register">Register</a>
-              </li>
-              <% } else { %>
-                <li class="nav-item" style="margin-left:20px;">
+                    <li class="nav-item" style="margin-left:20px;">
+                        <a class="nav-link textColorChange <%= path === '/register' ? 'textColorChange_active' : '' %>"
+                           href="/register">Register</a>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item" style="margin-left:20px;">
 
-                  <form action="/logout" method="POST">
-        <button class="btn" style="
+                        <form action="/logout" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="btn" style="
         color: #ffffff;
         background-color: #52057b;
         box-shadow: none;
         " type="submit">
-          Logout
-        </button>
-     
-      </form>
-                  </li>
+                                Logout
+                            </button>
+
+                        </form>
+                    </li>
               <% } %>
-             
+
             </ul>
           </div>
         </div>

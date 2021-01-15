@@ -16,6 +16,7 @@
 
             <div class="change_width">
                 <form action="<% if (register){ %>/register  <% } else { %> /login <% } %>" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <% if (registerComplete){ %>
                         <div class="alert alert-success" style="margin-top: 20px" role="alert">
                             Registration Successful
@@ -41,7 +42,7 @@
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
                         <input type="email" class="form-control" name="user_email" id="exampleInputEmail1"
-                               aria-describedby="emailHelp" value="reuben211999@gmail.com" required>
+                               aria-describedby="emailHelp" value="reuben@gmail.com" required>
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     </div>
                     <div class="mb-3">

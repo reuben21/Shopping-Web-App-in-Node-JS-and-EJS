@@ -4,6 +4,11 @@
 <body>
 
   <main>
+    <div style="display: flex;
+                justify-content: space-evenly;
+                align-items: center;">
+
+
     <% if (prods.length > 0) { %>
     <% for (let product of prods) { %>
       <a href="/products/<%= product._id  %> " style="text-decoration: none;color: #52057b;" >
@@ -31,6 +36,7 @@
     <% } else {  %>
     <h1>No Products Found</h1>
     <%   } %>
+    </div>
   </main>
 
   <%- include('../includes/end.ejs') %>

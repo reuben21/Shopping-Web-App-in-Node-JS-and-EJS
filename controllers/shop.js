@@ -17,10 +17,11 @@ exports.getProducts = (req, res, next) => {
             res.render('shop/product-list', {
                 prods: products,
                 pageTitle: 'Shop',
-                path: '/products',
-                isAuthenticated:req.session.isLoggedIn
+                path: '/products'
 
-              });
+
+
+            });
         }
     ).catch(err => {
         console.log(err);
@@ -36,8 +37,9 @@ exports.getSingleProduct = (req, res, next) => {
             prods: product,
             pageTitle: 'Shop',
             path: '/product-detail',
-            isAuthenticated:req.session.isLoggedIn
-            });
+
+
+        });
     })
 
 
@@ -49,10 +51,9 @@ exports.getIndex = (req, res, next)=>{
            res.render('shop/product-list', {
                prods: products,
                pageTitle: 'Shop',
-               path: '/products',
-               isAuthenticated:req.session.isLoggedIn
+               path: '/products'
 
-             });
+           });
        }
    ).catch(err => {
        console.log(err);
@@ -69,8 +70,7 @@ exports.getCart = (req, res, next) => {
             res.render('shop/cart', {
                 pageTitle: 'Your Cart',
                 path: '/cart',
-                products: products,
-                isAuthenticated:req.session.isLoggedIn
+                products: products
                 // totalPrice:cart.totalPrice
             });
         }).catch(err => console.log(err));
@@ -126,10 +126,11 @@ exports.postOrders = (req, res, next) => {
 exports.getOrders = (req, res, next) => {
     Order.find({ 'user.user_id':req.user._id }).then(orders=>{
         res.render('shop/orders', {
-            path:'/orders',
+            path: '/orders',
             pageTitle: 'Orders',
-            orders:orders,
-            isAuthenticated:req.session.isLoggedIn
+            orders: orders,
+            isAuthenticated: req.session.isLoggedIn,
+            csrfToken: req.csrfToken()
         });
     });
 
@@ -139,6 +140,7 @@ exports.getCheckout = (req, res, next) => {
     res.render('shop/checkout', {
         pageTitle: 'Checkout',
         path: '/checkout',
-        isAuthenticated:req.session.isLoggedIn
-      });
+        isAuthenticated: req.session.isLoggedIn,
+        csrfToken: req.csrfToken()
+    });
 }

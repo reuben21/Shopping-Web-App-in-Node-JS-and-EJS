@@ -13,7 +13,7 @@
             <div class="col-sm">
               <h1 style="margin: 10px 38%;">Add A Product</h1>
                 <form action="/admin/<% if (editing){ %>edit-product<% } else { %>add-product<% } %>" method="POST">
-
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <div class="input-group mb-3">
                         <input type="text" placeholder="Product Name" value="<% if (editing){ %> <%=product.title   %> <% } else { %>""<% } %>" name="product_name" class="form-control" aria-label="Sizing example input"
                                aria-describedby="inputGroup-sizing-default">
@@ -33,14 +33,14 @@
                     <% if (editing){ %>
                         <input type="hidden" value="<%= product._id %>" name="product_id">
                         <% }%>
-                       
-                       
+
+
                     <button class="btn" style="color: #bc6ff1;background-color: #52057b;" type="submit">
                         <% if (editing){ %>
                             Update Product
                             <% } else { %>
                             Add Product
-                            <% } %> 
+                            <% } %>
                     </button>
 
                 </form>

@@ -2,18 +2,22 @@ const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
     // console.log("Another  Middleware")
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login')
+    }
 
     res.render('admin/edit-product', {
         pageTitle: 'Add Product',
         path: '/admin/add-product',
-        editing:false,
-        isAuthenticated:req.session.isLoggedIn
+        editing:false
     })
 };
 
 exports.postAddProduct = (req, res, next) => {
     // console.log(req.user);
-
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login')
+    }
     const product_name = req.body.product_name;
     const product_price = parseFloat(req.body.product_price);
     const product_image_url = req.body.product_image_url;
@@ -43,6 +47,9 @@ exports.postAddProduct = (req, res, next) => {
 }
 
 exports.getDeleteProduct = (req, res, next) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login')
+    }
     const deleteMode = Boolean(req.query.delete);
     const product_id = req.params.productId;
 
@@ -57,6 +64,9 @@ exports.getDeleteProduct = (req, res, next) => {
 
 }
 exports.getEditProduct = (req, res, next) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login')
+    }
     const editMode = Boolean(req.query.edit);
     if(!editMode){
         res.redirect('/')
@@ -70,8 +80,7 @@ exports.getEditProduct = (req, res, next) => {
             pageTitle: 'Edit Product',
             path: '/admin/edit-product',
             editing:editMode,
-            product:product,
-            isAuthenticated:req.session.isLoggedIn
+            product:product
 
         })
 
@@ -82,11 +91,15 @@ exports.getEditProduct = (req, res, next) => {
 };
 
 exports.postEditProduct = (req, res, next) =>{
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login')
+    }
     const product_id = req.body.product_id;
     const product_name = req.body.product_name;
     const product_price = parseFloat(req.body.product_price);
     const product_image_url = req.body.product_image_url;
     const product_description = req.body.product_description;
+
     Product.findById(product_id).then(product=>{
         product.title = product_name
         product.price = product_price
@@ -94,7 +107,7 @@ exports.postEditProduct = (req, res, next) =>{
         product.description = product_description
         product.save();
     }).then(result=>{
-            console.log("updatedProduct product")
+            // console.log("updatedProduct product")
             res.redirect(`/admin/products`);
         })
         .catch(err=>{
@@ -104,7 +117,10 @@ exports.postEditProduct = (req, res, next) =>{
 };
 
 exports.getAllProducts = (req, res, next) => {
-    console.log("OUTSIDE FINB BY USER",req.session,"\n",req.session.isLoggedIn)
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login')
+    }
+    // console.log("OUTSIDE FINB BY USER",req.session,"\n",req.session.isLoggedIn)
     Product.find()
         // .select('title price _id image_url')
         // .populate('user_id','name')
@@ -115,7 +131,7 @@ exports.getAllProducts = (req, res, next) => {
                prods: products,
                pageTitle: 'Shop',
                path: '/products',
-               isAuthenticated:req.session.isLoggedIn
+
 
              });
        }
