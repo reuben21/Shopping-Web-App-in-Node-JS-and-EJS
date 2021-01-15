@@ -2,15 +2,18 @@ const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
     // console.log("Another  Middleware")
+
     res.render('admin/edit-product', {
         pageTitle: 'Add Product',
         path: '/admin/add-product',
-        editing:false
+        editing:false,
+        isAuthenticated:req.session.isLoggedIn
     })
 };
 
 exports.postAddProduct = (req, res, next) => {
     // console.log(req.user);
+
     const product_name = req.body.product_name;
     const product_price = parseFloat(req.body.product_price);
     const product_image_url = req.body.product_image_url;
@@ -25,8 +28,8 @@ exports.postAddProduct = (req, res, next) => {
     })
 
     product.save().then(result=>{
-        console.log("Created product")
-        res.redirect(`/admin/products`);
+
+        res.redirect(`/`);
     })
     .catch(err=>{
         console.log(err)
@@ -68,6 +71,7 @@ exports.getEditProduct = (req, res, next) => {
             path: '/admin/edit-product',
             editing:editMode,
             product:product,
+            isAuthenticated:req.session.isLoggedIn
 
         })
 
@@ -100,6 +104,7 @@ exports.postEditProduct = (req, res, next) =>{
 };
 
 exports.getAllProducts = (req, res, next) => {
+    console.log("OUTSIDE FINB BY USER",req.session,"\n",req.session.isLoggedIn)
     Product.find()
         // .select('title price _id image_url')
         // .populate('user_id','name')
@@ -110,6 +115,7 @@ exports.getAllProducts = (req, res, next) => {
                prods: products,
                pageTitle: 'Shop',
                path: '/products',
+               isAuthenticated:req.session.isLoggedIn
 
              });
        }

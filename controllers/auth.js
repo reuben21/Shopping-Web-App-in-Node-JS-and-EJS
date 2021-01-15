@@ -7,7 +7,7 @@ exports.getLogin = (req, res, next) => {
             pageTitle: 'Login',
             register:false,
             registerComplete:false,
-            isAuthenticated:req.session.isLoggedIn
+            isAuthenticated: false
         });
 
 }
@@ -30,9 +30,6 @@ exports.postRegister = (req, res, next) => {
     const user_email = req.body.user_email;
     const user_password = req.body.user_password;
 
-    console.log(user_name,
-    user_email,
-    user_password)
 
     const user = new User({
         name:user_name,
@@ -43,7 +40,7 @@ exports.postRegister = (req, res, next) => {
     })
 
     user.save().then(result=>{
-        console.log("Created User ")
+
         res.render('auth/auth', {
             path:'/login',
             pageTitle: 'Login',
@@ -63,29 +60,29 @@ exports.postLogin = (req, res, next) => {
 
     const user_email = req.body.user_email;
     const user_password = req.body.user_password;
+    console.log(user_email, user_password)
+    User.findById('5ffa7b7f66acfb081e7c8495').then(user=>{
+        req.session.isLoggedIn = true;
+        req.session.user = user;
 
-    console.log(
-        user_email,
-        user_password)
+        res.redirect('/');
+    })
 
-    req.session.isLoggedIn = true;
-    // res.setHeader('Set-Cookie','logedIn=true');
-    // req.isLoggedIn = true;
 
-    res.redirect('/');
-    // user.save().then(result=>{
-    //     console.log("Created User ")
-    //     res.render('auth/auth', {
-    //         path:'/login',
-    //         pageTitle: 'Login',
-    //         register:false,
-    //         registerComplete:true
-    //
-    //     });
-    // })
-    //     .catch(err=>{
-    //         console.log(err)
-    //     });
+
+
+
+
+
+}
+
+exports.postLogout = (req, res, next) => {
+
+    req.session.destroy((err)=>{
+        console.log(err)
+        res.redirect('/');
+    })
+
 
 
 }

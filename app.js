@@ -4,9 +4,17 @@ const path = require('path');
 const session = require('express-session');
 const expressHbs = require('express-handlebars');
 const mongoose = require('mongoose');
+
 const app = express();
+const MongoDBStore = require('connect-mongodb-session')(session)
 
+const MONGO_DB_URI = 'mongodb+srv://user_for_node:7uFBJ7025U5qD5Av@mongodb.syifj.mongodb.net/Shopping_Store?retryWrites=true&w=majority'
 
+const store= new MongoDBStore({
+    uri:MONGO_DB_URI,
+    collection:'sessions',
+
+});
 app.set('view engine', 'ejs');
 app.set('views','views');
 
@@ -20,23 +28,29 @@ const User = require('./models/user');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'public')))
+app.use(session({
+    secret: 'reuben coutinho',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { isLoggedIn:true },
+    store: store
+}));
 
 app.use((req, res, next) => {
-    User.findById("5ffa7b7f66acfb081e7c8495")
+    console.log(req.session.user)
+    if (!req.session.user) {
+        return next();
+    }
+    User.findById(req.session.user._id)
         .then(user => {
             req.user = user;
             next();
-        }).catch(err => {
-        console.log(err);
-    });
+        })
+        .catch(err => console.log(err));
 })
 
 app.use('/admin', adminRoutes);
-app.use(session({
-    secret: 'reubencoutinho',
-    resave: false,
-    saveUninitialized: false
-}))
+
 app.use(shopRoutes);
 app.use(authRoutes);
 app.use(errorController.get404)
@@ -47,7 +61,7 @@ app.use(errorController.get404)
 //     });
 // };
 
-mongoose.connect('mongodb+srv://user_for_node:7uFBJ7025U5qD5Av@mongodb.syifj.mongodb.net/Shopping_Store?retryWrites=true&w=majority')
+mongoose.connect(MONGO_DB_URI)
     .then(res =>{
         // const user = new User ({
         //     name:'Reuben Coutinho',

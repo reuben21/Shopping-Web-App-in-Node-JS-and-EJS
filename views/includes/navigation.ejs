@@ -11,7 +11,7 @@
                 <a class="nav-link textColorChange <%= path === '/' ? 'textColorChange_active' : '' %>"
                    aria-current="page" href="/">Store</a>
               </li>
-               <% if (true){ %>
+               <% if (isAuthenticated){ %>
                 <li class="nav-item" style="margin-left:20px;">
                   <a class="nav-link textColorChange <%= path === '/admin/add-product' ? 'textColorChange_active' : '' %>"
                      href="/admin/add-product">Add Product</a>
@@ -25,6 +25,10 @@
                   <a class="nav-link textColorChange <%= path === '/orders' ? 'textColorChange_active' : '' %>"
                      href="/orders">Orders</a>
                 </li>
+                <li class="nav-item" style="margin-left:20px;">
+                  <a class="nav-link textColorChange <%= path === '/cart' ? 'textColorChange_active' : '' %>"
+                     href="/cart">Cart</a>
+                </li>
                <% } else { %>
 
                <% } %>
@@ -35,10 +39,7 @@
                    href="/products">Products</a>
               </li>
 
-              <li class="nav-item" style="margin-left:20px;">
-                <a class="nav-link textColorChange <%= path === '/cart' ? 'textColorChange_active' : '' %>"
-                   href="/cart">Cart</a>
-              </li>
+              <% if (!isAuthenticated){ %>
               <li class="nav-item" style="margin-left:20px;">
                 <a class="nav-link textColorChange <%= path === '/login' ? 'textColorChange_active' : '' %>"
                    href="/login">Login</a>
@@ -47,6 +48,22 @@
                 <a class="nav-link textColorChange <%= path === '/register' ? 'textColorChange_active' : '' %>"
                    href="/register">Register</a>
               </li>
+              <% } else { %>
+                <li class="nav-item" style="margin-left:20px;">
+
+                  <form action="/logout" method="POST">
+        <button class="btn" style="
+        color: #ffffff;
+        background-color: #52057b;
+        box-shadow: none;
+        " type="submit">
+          Logout
+        </button>
+     
+      </form>
+                  </li>
+              <% } %>
+             
             </ul>
           </div>
         </div>
