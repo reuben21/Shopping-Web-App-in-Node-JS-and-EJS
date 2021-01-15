@@ -10,12 +10,14 @@
     <div class="card text-center">
       <div class="card-header">
         <img src="<%= prods.image_url %> " class="img-fluid" style="max-width:300px;" alt="...">
-      
+
       </div>
       <div class="card-body">
         <h5 class="card-title"><%= prods.title %> </h5>
         <p class="card-text" style="width:300px;"><%= prods.description %> </p>
+          <% if (isAuthenticated){ %>
         <%- include('../includes/add-to-cart.ejs',{product:prods._id}) %>
+        <% } %>
       </div>
       <!-- <div class="card-footer text-muted">
         2 days ago

@@ -31,7 +31,6 @@ exports.getProducts = (req, res, next) => {
 exports.getSingleProduct = (req, res, next) => {
    const product_id = req.params.productId;
 
-   console.log(product_id,req.session.isLoggedIn)
     Product.findById(product_id).then(product => {
         res.render('shop/product-detail', {
             prods: product,
@@ -65,7 +64,7 @@ exports.getCart = (req, res, next) => {
         .populate('cart.items.product_id')
         .execPopulate()
         .then(user => {
-            // console.log(user.cart.items);
+
             const products = user.cart.items;
             res.render('shop/cart', {
                 pageTitle: 'Your Cart',
@@ -82,11 +81,12 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req,res,next)=>{
     const product_id = req.body.product_id;
     Product.findById(product_id).then((product)=>{
-        return req.session.user.addToCart(product);
+        return req.user.addToCart(product);
         // Cart.addProduct(product_id,product.price)
     }).then(result=>{
             // console.log(result);
     }
+
 
         )
     res.redirect('/');
@@ -101,7 +101,7 @@ exports.getDeleteItemFromCart = (req, res, next) => {
 
 }
 exports.postOrders = (req, res, next) => {
-    req.session.user
+    req.user
         .populate('cart.items.product_id')
         .execPopulate()
         .then(user => {

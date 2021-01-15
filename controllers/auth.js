@@ -60,12 +60,16 @@ exports.postLogin = (req, res, next) => {
 
     const user_email = req.body.user_email;
     const user_password = req.body.user_password;
-    console.log(user_email, user_password)
-    User.findById('5ffa7b7f66acfb081e7c8495').then(user=>{
+
+    User.findById('5ffa7b7f66acfb081e7c8495').then(user=> {
         req.session.isLoggedIn = true;
         req.session.user = user;
+        req.session.save(err => {
+                console.log(err);
+                res.redirect('/');
+            }
+        )
 
-        res.redirect('/');
     })
 
 
