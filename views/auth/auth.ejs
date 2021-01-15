@@ -17,11 +17,21 @@
             <div class="change_width">
                 <form action="<% if (register){ %>/register  <% } else { %> /login <% } %>" method="POST">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                    <% if (invalidCredentials){ %>
+                        <div class="alert alert-danger" style="margin-top: 20px" role="alert">
+
+                            <% if (errorMessage){ %>
+                                <%= errorMessage %>
+                            <% } else { %>
+                                    Invalid Credentials
+                            <% } %>
+                        </div>
+                    <% } %>
                     <% if (registerComplete){ %>
                         <div class="alert alert-success" style="margin-top: 20px" role="alert">
                             Registration Successful
                         </div>
-                    <% } else { %>
                     <% } %>
                     <h3>
                         <% if (register){ %>

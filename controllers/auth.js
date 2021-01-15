@@ -8,6 +8,8 @@ exports.getLogin = (req, res, next) => {
             pageTitle: 'Login',
             register: false,
             registerComplete: false,
+            invalidCredentials:false,
+            errorMessage:false,
 
         });
 
@@ -20,6 +22,8 @@ exports.getRegister = (req, res, next) => {
         pageTitle: 'Register',
         register: true,
         registerComplete: false,
+        invalidCredentials:false,
+        errorMessage:false,
 
 
     });
@@ -38,7 +42,17 @@ exports.postRegister = (req, res, next) => {
             .findOne({email: user_email})
             .then(userDoc => {
                 if (userDoc) {
-                    return res.redirect("/register")
+                    return res.render('auth/auth', {
+                        path: '/register',
+                        pageTitle: 'Register',
+                        register: false,
+                        registerComplete: false,
+                        isAuthenticated: false,
+                        invalidCredentials:true,
+                        errorMessage:"Email-Id is already Taken"
+
+
+                    });
                 }
                 return bcrypt.hash(user_password, 16).then(hashed_password => {
                     const user = new User({
@@ -57,6 +71,8 @@ exports.postRegister = (req, res, next) => {
                         register: false,
                         registerComplete: true,
                         isAuthenticated: false,
+                        invalidCredentials:false,
+                        errorMessage:false,
 
 
                     });
@@ -78,7 +94,17 @@ exports.postLogin = (req, res, next) => {
         .findOne({email: user_email})
         .then(user => {
             if (!user) {
-                return res.redirect("/login")
+                return res.render('auth/auth', {
+                    path: '/login',
+                    pageTitle: 'Login',
+                    register: false,
+                    registerComplete: false,
+                    isAuthenticated: false,
+                    invalidCredentials:true,
+                    errorMessage:false,
+
+
+                });
             }
             bcrypt.compare(user_password, user.password)
                 .then(doMatch => {
@@ -93,7 +119,17 @@ exports.postLogin = (req, res, next) => {
                         )
 
                     }
-                    return res.redirect("/login")
+                    return   res.render('auth/auth', {
+                        path: '/login',
+                        pageTitle: 'Login',
+                        register: false,
+                        registerComplete: false,
+                        isAuthenticated: false,
+                        invalidCredentials:true,
+                        errorMessage:false,
+
+
+                    });
 
                 }).catch(err => {
                 console.log(err)
