@@ -1,17 +1,23 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
+
+
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+
 exports.getLogin = (req, res, next) => {
 
     // console.log(req.get('Cookie'));
-        res.render('auth/auth', {
-            path: '/login',
-            pageTitle: 'Login',
-            register: false,
-            registerComplete: false,
-            invalidCredentials:false,
-            errorMessage:false,
+    res.render('auth/auth', {
+        path: '/login',
+        pageTitle: 'Login',
+        register: false,
+        registerComplete: false,
+        invalidCredentials: false,
+        errorMessage: false,
 
-        });
+    });
 
 }
 
@@ -64,18 +70,30 @@ exports.postRegister = (req, res, next) => {
                     })
                     return user.save()
                 }).then(result => {
-
                     res.render('auth/auth', {
                         path: '/login',
                         pageTitle: 'Login',
                         register: false,
                         registerComplete: true,
                         isAuthenticated: false,
-                        invalidCredentials:false,
-                        errorMessage:false,
+                        invalidCredentials: false,
+                        errorMessage: false,
 
 
                     });
+                    return sgMail.send({
+                        to: user_email,
+                        from: "hectorjonasy@gmail.com",
+                        subject: 'Sign Up Successfully',
+                        text: 'and easy to do anywhere, even with Node.js',
+                        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+                    }).then(() => {
+                        console.log('Email sent')
+                    })
+                        .catch((error) => {
+                            console.error(error)
+                        })
+
                 })
             })
             .catch(err=>{

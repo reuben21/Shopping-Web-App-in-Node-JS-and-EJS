@@ -45,8 +45,16 @@ Cookies
 <li>Identified via Cookie</li>
 </ul>
 </ol>
-
-         
+<br> 
+<h3>Authentication </h3>
+<ol>
+<li>Not Every User can visit the Page</li>
+</ol>     
+<h3>Security & UX</h3>
+<ol>
+<li>Passwords to Be Stored in Hashed Form</li>
+<li>CSRF Attacks are a real issue and you should include CSRF protection in ANY Application you Build</li>
+</ol>
 ``Product.find()``
 ``.select('title price _id image_url')
           .populate('user_id','name').then(``
