@@ -2,8 +2,8 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
 
-const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+// const sgMail = require('@sendgrid/mail')
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 
 exports.getLogin = (req, res, next) => {
@@ -70,7 +70,7 @@ exports.postRegister = (req, res, next) => {
                     })
                     return user.save()
                 }).then(result => {
-                    res.render('auth/auth', {
+                   return res.render('auth/auth', {
                         path: '/login',
                         pageTitle: 'Login',
                         register: false,
@@ -81,18 +81,19 @@ exports.postRegister = (req, res, next) => {
 
 
                     });
-                    return sgMail.send({
-                        to: user_email,
-                        from: "hectorjonasy@gmail.com",
-                        subject: 'Sign Up Successfully',
-                        text: 'and easy to do anywhere, even with Node.js',
-                        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-                    }).then(() => {
-                        console.log('Email sent')
-                    })
-                        .catch((error) => {
-                            console.error(error)
-                        })
+                   // For Sending An Email
+                    // return sgMail.send({
+                    //     to: user_email,
+                    //     from: "hectorjonasy@gmail.com",
+                    //     subject: 'Sign Up Successfully',
+                    //     text: 'and easy to do anywhere, even with Node.js',
+                    //     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+                    // }).then(() => {
+                    //     console.log('Email sent')
+                    // })
+                    //     .catch((error) => {
+                    //         console.error(error)
+                    //     })
 
                 })
             })
