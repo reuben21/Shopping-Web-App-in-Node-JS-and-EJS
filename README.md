@@ -55,6 +55,8 @@ Cookies
 <li>Passwords to Be Stored in Hashed Form</li>
 <li>CSRF Attacks are a real issue and you should include CSRF protection in ANY Application you Build</li>
 </ol>
+<br> 
+<h3>Advanced Authentication </h3>
 ``Product.find()``
 ``.select('title price _id image_url')
           .populate('user_id','name').then(``
