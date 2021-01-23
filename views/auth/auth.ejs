@@ -65,6 +65,15 @@
                         <label class="form-check-label" for="exampleCheck1">Check me out</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <% if (register){ %>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Name</label>
+                            <input type="text" class="form-control" name="user_name" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp" required>
+                        </div>
+                    <% } else { %>
+                        <a class="btn btn-primary" href="/reset">Reset Password</a>
+                    <% } %>
                 </form>
             </div>
         </div>

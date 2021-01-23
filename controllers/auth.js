@@ -1,10 +1,18 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
+const crypto = require('crypto');
 
-// const sgMail = require('@sendgrid/mail')
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const nodemailer = require('nodemailer');
 
+
+let mailTransporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.GMAIL_ID,
+        pass: process.env.GMAIL_PASSWORD
+    }
+});
 
 exports.getLogin = (req, res, next) => {
 
@@ -82,18 +90,7 @@ exports.postRegister = (req, res, next) => {
 
                     });
                    // For Sending An Email
-                    // return sgMail.send({
-                    //     to: user_email,
-                    //     from: "hectorjonasy@gmail.com",
-                    //     subject: 'Sign Up Successfully',
-                    //     text: 'and easy to do anywhere, even with Node.js',
-                    //     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-                    // }).then(() => {
-                    //     console.log('Email sent')
-                    // })
-                    //     .catch((error) => {
-                    //         console.error(error)
-                    //     })
+
 
                 })
             })
@@ -138,21 +135,21 @@ exports.postLogin = (req, res, next) => {
                         )
 
                     }
-                    return   res.render('auth/auth', {
+                    return res.render('auth/auth', {
                         path: '/login',
                         pageTitle: 'Login',
                         register: false,
                         registerComplete: false,
                         isAuthenticated: false,
-                        invalidCredentials:true,
-                        errorMessage:false,
+                        invalidCredentials: true,
+                        errorMessage: false,
 
 
                     });
 
                 }).catch(err => {
                 console.log(err)
-                return res.redirect("/login")
+
             });
 
 
@@ -163,11 +160,89 @@ exports.postLogin = (req, res, next) => {
 
 exports.postLogout = (req, res, next) => {
 
-    req.session.destroy((err)=>{
+    req.session.destroy((err) => {
         console.log(err)
         res.redirect('/');
     })
 
+
+}
+
+exports.getReset = (req, res, next) => {
+
+
+    res.render('auth/reset', {
+        path: '/reset',
+        pageTitle: 'Reset Password',
+        register: false,
+        invalidCredentials: false,
+        errorMessage: false,
+
+
+    });
+
+
+}
+
+exports.postReset = (req, res, next) => {
+    console.log(req.body.email)
+    crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+            console.log(err)
+            return res.redirect('/');
+        }
+        const token = buffer.toString('hex');
+        User.findOne({email: req.body.email})
+            .then(user => {
+                if (!user) {
+                    console.log("Entered", user)
+                    return null;
+
+                } else {
+                    user.resetToken = token;
+                    user.resetTokenExpiration = Date.now() + 3600000;
+                    return user.save();
+                }
+
+            }).then(result => {
+            if (result === null) {
+                console.log("Entered result", result)
+                res.render('auth/reset', {
+                    path: '/reset',
+                    pageTitle: 'Reset Password',
+                    register: false,
+                    invalidCredentials: true,
+                    errorMessage: false,
+
+                })
+            }
+            mailTransporter.sendMail({
+                to: req.body.email,
+                from: "hectorjonasy@gmail.com",
+                subject: 'Password Reset Email',
+                text: 'Requested For Password Reset',
+                html: `<h4>Click this link to Get started <a href="http://localhost:3000/reset/${token}">Over Here</a> </h4>`
+            }).then(() => {
+                console.log('Email sent')
+                return res.render('auth/reset', {
+                    path: '/reset',
+                    pageTitle: 'Reset Password',
+                    register: false,
+                    invalidCredentials: true,
+                    errorMessage: "Email Was Sent",
+
+                })
+            })
+                .catch((error) => {
+                    console.error(error)
+                })
+
+
+        })
+            .catch(err => {
+                console.log(err);
+            })
+    })
 
 
 }

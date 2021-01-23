@@ -1,0 +1,48 @@
+<%- include('../includes/head.ejs') %>
+
+<%- include('../includes/navigation.ejs') %>
+<body>
+
+<main>
+    <style>
+        .change_width {
+            width: 500px;
+        }
+
+
+    </style>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="change_width">
+                <form action="/reset" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                    <% if (invalidCredentials){ %>
+                        <div class="alert alert-danger" style="margin-top: 20px" role="alert">
+
+                            <% if (errorMessage){ %>
+                                <%= errorMessage %>
+                            <% } else { %>
+                                Invalid Credentials
+                            <% } %>
+                        </div>
+                    <% } %>
+
+
+                    <div class="mb-3">
+                        <label for="Email Id" class="form-label">Enter your Email-Id</label>
+                        <input type="email" name="email" value="" class="form-control" id="email">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Reset Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../includes/end.ejs') %>
+</body>
+
+</html>
