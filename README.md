@@ -56,7 +56,14 @@ Cookies
 <li>CSRF Attacks are a real issue and you should include CSRF protection in ANY Application you Build</li>
 </ol>
 <br> 
-<h3>Advanced Authentication </h3>
+<h3>Advanced Authentication and Authorization </h3>
+<br>
+<li>
+Password resetting has to be implemented in a way that prevent users form resetting random user accounts
+</li>
+<li>
+Allow Editing Based on Authorization, So A User who has added the product will be able to edit the product added by him and not by any other user.
+</li>
 ``Product.find()``
 ``.select('title price _id image_url')
           .populate('user_id','name').then(``

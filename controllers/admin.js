@@ -54,7 +54,7 @@ exports.getDeleteProduct = (req, res, next) => {
     const product_id = req.params.productId;
 
     if(deleteMode) {
-        Product.findByIdAndRemove(product_id).then(() =>{
+        Product.deleteOne({_id:product_id,user_id:req.user._id}).then(() =>{
             res.redirect(`/admin/products`);
         });
 
@@ -101,6 +101,9 @@ exports.postEditProduct = (req, res, next) =>{
     const product_description = req.body.product_description;
 
     Product.findById(product_id).then(product=>{
+        if(product.user_id.toString() !== req.user._id.toString() ){
+            return res.redirect('/')
+        }
         product.title = product_name
         product.price = product_price
         product.image_url = product_image_url
@@ -120,8 +123,9 @@ exports.getAllProducts = (req, res, next) => {
     if (!req.session.isLoggedIn) {
         return res.redirect('/login')
     }
+
     // console.log("OUTSIDE FINB BY USER",req.session,"\n",req.session.isLoggedIn)
-    Product.find()
+    Product.find({user_id:req.user._id})
         // .select('title price _id image_url')
         // .populate('user_id','name')
         .then(

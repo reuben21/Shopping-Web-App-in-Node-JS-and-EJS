@@ -2,15 +2,14 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
 const crypto = require('crypto');
-
 const nodemailer = require('nodemailer');
 
 
 let mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.GMAIL_ID,
-        pass: process.env.GMAIL_PASSWORD
+        user: "test@test.com",
+        pass: "test1234"
     }
 });
 
@@ -38,8 +37,6 @@ exports.getRegister = (req, res, next) => {
         registerComplete: false,
         invalidCredentials:false,
         errorMessage:false,
-
-
     });
 
 }
@@ -244,5 +241,58 @@ exports.postReset = (req, res, next) => {
             })
     })
 
+
+}
+
+
+exports.getNewPassword = (req, res, next) => {
+    const token = req.params.token;
+    User.findOne({resetToken: token, resetTokenExpiration: {$gt: Date.now()}})
+        .then(user => {
+            console.log("The User: ",user)
+            res.render('auth/newpassword', {
+                path: '/newpassword',
+                pageTitle: 'New Password',
+                register: false,
+                invalidCredentials: false,
+                errorMessage: false,
+                user_id: user._id.toString(),
+                password_token: token
+            });
+
+        });
+
+}
+
+exports.postNewPassword = (req, res, next) => {
+    const password = req.body.password;
+    const user_id = req.body.user_id;
+    const password_token = req.body.password_token;
+    let resetUser;
+    User.findOne({
+        resetToken: password_token,
+        _id: user_id,
+        resetTokenExpiration:
+            {
+                $gt: Date.now()
+
+            }
+    })
+        .then(user => {
+            resetUser = user;
+            return bcrypt.hash(password, 16)
+
+
+        }).then(hashed_password => {
+        resetUser.password = hashed_password;
+        resetUser.resetToken = null;
+        resetUser.resetTokenExpiration = undefined;
+        console.log("User Reset: ",resetUser)
+        return resetUser.save();
+    }).then(result => {
+        return res.redirect('/login')
+    }).catch(err => {
+        console.log(err);
+    });
 
 }
