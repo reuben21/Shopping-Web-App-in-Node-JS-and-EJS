@@ -45,25 +45,28 @@
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
                         <input type="email" class="form-control" name="user_email" id="user_email"
-                               aria-describedby="emailHelp" value="reuben21@gmail.com" />
+                               aria-describedby="emailHelp" value="<%= old_input.user_name %>"/>
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     </div>
                     <% if (register){ %>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Name</label>
-                            <input type="text" class="form-control" value="reuben21" name="user_name" id="user_name"/>
+                            <input type="text" class="form-control" value="<%= old_input.user_email %>" name="user_name"
+                                   id="user_name"/>
                         </div>
                     <% } else { %>
 
                     <% } %>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label" >Password</label>
-                        <input type="password" name="user_password" value="Reuben@21" class="form-control" id="exampleInputPassword1" />
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" name="user_password" value="<%= old_input.user_password %>"
+                               class="form-control" id="exampleInputPassword1"/>
                     </div>
                     <% if (register){ %>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label" >Confirm Password</label>
-                            <input type="password" name="confirm_password" value="Reuben@21" class="form-control" id="exampleInputPassword1" />
+                            <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                            <input type="password" name="confirm_password" value="" class="form-control"
+                                   id="exampleInputPassword1"/>
                         </div>
                     <% } else { %>
 

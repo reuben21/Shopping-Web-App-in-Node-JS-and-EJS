@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
-const {validationResult} = require('express-validator/check')
+const {validationResult} = require('express-validator/check');
+
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
@@ -23,6 +24,11 @@ exports.getLogin = (req, res, next) => {
         registerComplete: false,
         invalidCredentials: false,
         errorMessage: false,
+        old_input:{
+            user_name:"",
+            user_email:"",
+            user_password:""
+        }
 
     });
 
@@ -37,6 +43,11 @@ exports.getRegister = (req, res, next) => {
         registerComplete: false,
         invalidCredentials:false,
         errorMessage:false,
+        old_input:{
+            user_name:"",
+            user_email:"",
+            user_password:""
+        }
     });
 
 }
@@ -48,63 +59,59 @@ exports.postRegister = (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()){
+
         return res.status(422).render('auth/auth', {
             path: '/register',
             pageTitle: 'Register',
             register: true,
             registerComplete: false,
-            invalidCredentials:true,
-            errorMessage:errors.array()[0].msg,
+            invalidCredentials: true,
+            errorMessage: errors.array()[0].msg,
+            old_input:{
+                user_name:user_name,
+                user_email:user_email,
+                user_password:user_password
+            }
         });
     }
-    // const hashed_password =
 
 
-        User
-            .findOne({email: user_email})
-            .then(userDoc => {
-                if (userDoc) {
-                    return res.render('auth/auth', {
-                        path: '/register',
-                        pageTitle: 'Register',
-                        register: false,
-                        registerComplete: false,
-                        isAuthenticated: false,
-                        invalidCredentials:true,
-                        errorMessage:"Email-Id is already Taken"
+    bcrypt.hash(user_password, 16).then(hashed_password => {
+        const user = new User({
+            name: user_name,
+            email: user_email,
+            password: hashed_password,
+            cart: {items: []},
+
+        })
+        return user.save()
+    }).then(result => {
+        return res.render('auth/auth', {
+            path: '/login',
+            pageTitle: 'Login',
+            register: false,
+            registerComplete: true,
+            isAuthenticated: false,
+            invalidCredentials: false,
+            errorMessage: false,
+            old_input:{
+                user_name:"",
+                user_email:"",
+                user_password:""
+            }
 
 
-                    });
-                }
-                return bcrypt.hash(user_password, 16).then(hashed_password => {
-                    const user = new User({
-                        name: user_name,
-                        email: user_email,
-                        password: hashed_password,
-                        cart: {items: []},
-
-                    })
-                    return user.save()
-                }).then(result => {
-                   return res.render('auth/auth', {
-                        path: '/login',
-                        pageTitle: 'Login',
-                        register: false,
-                        registerComplete: true,
-                        isAuthenticated: false,
-                        invalidCredentials: false,
-                        errorMessage: false,
+        });
 
 
-                    });
-                   // For Sending An Email
 
-
-                })
-            })
-            .catch(err=>{
-                console.log(err)
-            });
+    }).catch(err => {
+        console.log(err)
+    });
+    // })
+    // .catch(err=>{
+    //     console.log(err)
+    // });
 
 
 }
@@ -126,7 +133,11 @@ exports.postLogin = (req, res, next) => {
                     isAuthenticated: false,
                     invalidCredentials:true,
                     errorMessage:false,
-
+                    old_input:{
+                        user_name:"",
+                        user_email:"",
+                        user_password:""
+                    }
 
                 });
             }
@@ -151,6 +162,11 @@ exports.postLogin = (req, res, next) => {
                         isAuthenticated: false,
                         invalidCredentials: true,
                         errorMessage: false,
+                        old_input:{
+                            user_name:"",
+                            user_email:user_email,
+                            user_password:user_password
+                        }
 
 
                     });

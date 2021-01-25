@@ -2,28 +2,41 @@
 
 <%- include('../includes/navigation.ejs') %>
 <body>
-
+<style>
+    .change_width_Add_product {
+        width: 500px;
+    }
+</style>
 <main>
     <div style="display: flex;
                 justify-content: center;
                 align-items: center;
                 width: 100%;">
-        <div>
-
-            <div class="col-sm">
+        <div class="row">
+            <div  class="change_width_Add_product">
               <h1 style="margin: 10px 38%;">Add A Product</h1>
                 <form action="/admin/<% if (editing){ %>edit-product<% } else { %>add-product<% } %>" method="POST">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <% if (invalidCredentials){ %>
+                        <div class="alert alert-danger" style="margin-top: 20px" role="alert">
+
+                            <% if (errorMessage){ %>
+                                <%= errorMessage %>
+                            <% } else { %>
+                                Invalid Credentials
+                            <% } %>
+                        </div>
+                    <% } %>
                     <div class="input-group mb-3">
-                        <input type="text" placeholder="Product Name" value="<% if (editing){ %> <%=product.title   %> <% } else { %>""<% } %>" name="product_name" class="form-control" aria-label="Sizing example input"
+                        <input type="text" placeholder="Product Name" value="<% if (editing){ %> <%=product.title   %> <% } else {} %>" name="product_name" class="form-control" aria-label="Sizing example input"
                                aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" placeholder="Product Price" value="<% if (editing){ %> <%= product.price   %> <% } else { %>""<% } %>" name="product_price" class="form-control" aria-label="Sizing example input"
+                        <input type="text" placeholder="Product Price" value="<% if (editing){ %> <%= product.price   %> <% } else {} %>" name="product_price" class="form-control" aria-label="Sizing example input"
                                aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" placeholder="Image URL" value="<% if (editing){ %> <%= product.image_url   %> <% } else { %>""<% } %>" name="product_image_url" class="form-control" aria-label="Sizing example input"
+                        <input type="text" placeholder="Image URL" value="<% if (editing){ %> <%= product.image_url   %> <% } else {} %>" name="product_image_url" class="form-control" aria-label="Sizing example input"
                                aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">

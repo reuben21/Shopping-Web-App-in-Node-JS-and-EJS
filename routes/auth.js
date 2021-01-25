@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check,body } = require('express-validator/check');
 const authController = require('../controllers/auth')
-
+const User = require('../models/user');
 router.get('/login',authController.getLogin);
 
 router.get('/register',authController.getRegister);
@@ -15,19 +15,30 @@ router.post('/register', [
         // }),,
         check('user_name')
             .isAlphanumeric()
-            .withMessage('Enter A Proper Username'),
+            .withMessage('Enter A Proper Username').trim(),
         check('user_email')
             .isEmail()
-            .withMessage('Enter A Proper Email-ID'),
+            .normalizeEmail()
+            .withMessage('Enter A Proper Email-ID')
+            .custom((value, {req}) => {
+                return User
+                    .findOne({email: value})
+                    .then(userDoc => {
+                        if (userDoc) {
+                            return Promise.reject("Email-Id is already Taken")
+                        }
+                    })
+            }),
         check('user_password')
+            .trim()
             .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i")
             .withMessage('A password should be alphanumeric.' +
                 'First letter of the password should be capital.\n' +
                 'Password must contain a special character (@, $, !, &, etc).\n' +
-                'Password length must be greater than 8 characters.\n'),
-        body('confirm_password').custom((value,{req})=>{
-            console.log(value,req.body.user_password)
-            if(value !== req.body.user_password){
+                'Password length must be greater than 8 characters.\n')
+            ,
+        body('confirm_password').trim().custom((value, {req}) => {
+            if (value !== req.body.user_password) {
 
                 throw new Error('Passwords Do Not Match')
             }
