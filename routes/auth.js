@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { check } = require('express-validator/check');
+const { check,body } = require('express-validator/check');
 const authController = require('../controllers/auth')
 
 router.get('/login',authController.getLogin);
@@ -25,6 +25,15 @@ router.post('/register', [
                 'First letter of the password should be capital.\n' +
                 'Password must contain a special character (@, $, !, &, etc).\n' +
                 'Password length must be greater than 8 characters.\n'),
+        body('confirm_password').custom((value,{req})=>{
+            console.log(value,req.body.user_password)
+            if(value !== req.body.user_password){
+
+                throw new Error('Passwords Do Not Match')
+            }
+            return true;
+
+        })
 
     ]
     , authController.postRegister);
