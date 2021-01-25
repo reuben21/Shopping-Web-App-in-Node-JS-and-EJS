@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
-
+const {validationResult} = require('express-validator/check')
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
@@ -45,8 +45,20 @@ exports.postRegister = (req, res, next) => {
     const user_name = req.body.user_name;
     const user_email = req.body.user_email;
     const user_password = req.body.user_password;
-
-    const hashed_password =
+    const errors = validationResult(req);
+    console.log(errors)
+    if (!errors.isEmpty()){
+        console.log(errors.array())
+        return res.status(422).render('auth/auth', {
+            path: '/register',
+            pageTitle: 'Register',
+            register: true,
+            registerComplete: false,
+            invalidCredentials:true,
+            errorMessage:errors.array(),
+        });
+    }
+    // const hashed_password =
 
 
         User

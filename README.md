@@ -64,6 +64,8 @@ Password resetting has to be implemented in a way that prevent users form resett
 <li>
 Allow Editing Based on Authorization, So A User who has added the product will be able to edit the product added by him and not by any other user.
 </li>
+<br> 
+<h3>Express Validator </h3>
 ``Product.find()``
 ``.select('title price _id image_url')
           .populate('user_id','name').then(``
