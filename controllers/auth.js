@@ -48,14 +48,13 @@ exports.postRegister = (req, res, next) => {
     const errors = validationResult(req);
     console.log(errors)
     if (!errors.isEmpty()){
-        console.log(errors.array())
         return res.status(422).render('auth/auth', {
             path: '/register',
             pageTitle: 'Register',
             register: true,
             registerComplete: false,
             invalidCredentials:true,
-            errorMessage:errors.array(),
+            errorMessage:errors.array()[0].msg,
         });
     }
     // const hashed_password =

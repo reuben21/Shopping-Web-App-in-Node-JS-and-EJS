@@ -7,7 +7,15 @@ router.get('/login',authController.getLogin);
 
 router.get('/register',authController.getRegister);
 
-router.post('/register',check('user_email').isEmail(),authController.postRegister);
+router.post('/register', check('user_email')
+    .isEmail()
+    .withMessage('Enter A Proper Email-ID')
+    // Adding A Custom Validation is also possible
+        // .custom(()=>{
+        //
+        // })
+
+    , authController.postRegister);
 
 router.post('/login',authController.postLogin);
 
