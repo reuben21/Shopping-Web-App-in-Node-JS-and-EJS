@@ -46,7 +46,7 @@ exports.postRegister = (req, res, next) => {
     const user_email = req.body.user_email;
     const user_password = req.body.user_password;
     const errors = validationResult(req);
-    console.log(errors)
+
     if (!errors.isEmpty()){
         return res.status(422).render('auth/auth', {
             path: '/register',

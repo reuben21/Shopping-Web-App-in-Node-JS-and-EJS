@@ -7,14 +7,26 @@ router.get('/login',authController.getLogin);
 
 router.get('/register',authController.getRegister);
 
-router.post('/register', check('user_email')
-    .isEmail()
-    .withMessage('Enter A Proper Email-ID')
-    // Adding A Custom Validation is also possible
+router.post('/register', [
+
+        // Adding A Custom Validation is also possible
         // .custom(()=>{
         //
-        // })
+        // }),,
+        check('user_name')
+            .isAlphanumeric()
+            .withMessage('Enter A Proper Username'),
+        check('user_email')
+            .isEmail()
+            .withMessage('Enter A Proper Email-ID'),
+        check('user_password')
+            .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i")
+            .withMessage('A password should be alphanumeric.' +
+                'First letter of the password should be capital.\n' +
+                'Password must contain a special character (@, $, !, &, etc).\n' +
+                'Password length must be greater than 8 characters.\n'),
 
+    ]
     , authController.postRegister);
 
 router.post('/login',authController.postLogin);
