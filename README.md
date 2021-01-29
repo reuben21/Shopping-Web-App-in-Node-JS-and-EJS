@@ -68,6 +68,6 @@ Allow Editing Based on Authorization, So A User who has added the product will b
 <h3>Express Validator </h3>
 <li>Adding Validation by wrapping the controller js</li>
 <li>Adding A Custom Validation is also possible</li>
-``Product.find()``
-``.select('title price _id image_url')
-          .populate('user_id','name').then(``
+<li>Custom Validation</li>
+<li>Using Sanitizers for Triming and Validation</li>
+
