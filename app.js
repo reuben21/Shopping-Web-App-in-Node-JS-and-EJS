@@ -56,6 +56,7 @@ const User = require('./models/user');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(multer({storage:fileStorage,fileFilter: fileFilter}).single('product_image_picker'))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/product_image_picker',express.static(path.join(__dirname, 'product_image_picker')))
 app.use(session({
     secret: 'reuben coutinho',
     resave: false,
