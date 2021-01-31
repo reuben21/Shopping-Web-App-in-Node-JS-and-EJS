@@ -7,20 +7,20 @@
         width: 500px;
     }
 </style>
-<script>
-    window.addEventListener("load", function () {
-        document.getElementById("drop-area").onchange = function (event) {
-            var reader = new FileReader();
-            reader.readAsDataURL(event.srcElement.files[0]);
+<!--<script>-->
+<!--    window.addEventListener("load", function () {-->
+<!--        document.getElementById("drop-area").onchange = function (event) {-->
+<!--            var reader = new FileReader();-->
+<!--            reader.readAsDataURL(event.srcElement.files[0]);-->
 
-            reader.onload = function () {
-                var fileContent = reader.result;
-                console.log(fileContent)
-                document.getElementById("product_image_picker_base64").value = fileContent;
-            }
-        }
-    });
-</script>
+<!--            reader.onload = function () {-->
+<!--                var fileContent = reader.result;-->
+<!--                console.log(fileContent)-->
+<!--                document.getElementById("product_image_picker_base64").value = fileContent;-->
+<!--            }-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
 <main>
     <div style="display: flex;
                 justify-content: center;
@@ -61,7 +61,7 @@
                                aria-label="Sizing example input"
                                aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <input type="hidden" id="product_image_picker_base64" name="product_image_picker_base64">
+<!--                    <input type="hidden" id="product_image_picker_base64" name="product_image_picker_base64">-->
                     <div class="input-group mb-3">
                         <textarea placeholder="Description" name="product_description" class="form-control" rows="5"
                                aria-describedby="inputGroup-sizing-default"><% if (editing){ %> <%=product.description  %> <% } else { %><% } %></textarea>

@@ -27,10 +27,9 @@ exports.postAddProduct = (req, res, next) => {
     const product_price = parseFloat(req.body.product_price);
     // const product_image_url = req.body.product_image_url;
     const product_image_picker = req.file;
-    const product_image_picker_base64 = req.body.product_image_picker_base64;
+    // const product_image_picker_base64 = req.body.product_image_picker_base64;
     const product_description = req.body.product_description;
-        // ,req.user._id
-    console.log("Image ",product_image_picker_base64)
+
     if(!product_image_picker){
         return res.status(422).render('admin/edit-product', {
             pageTitle: 'Add Product',
@@ -56,7 +55,7 @@ exports.postAddProduct = (req, res, next) => {
     const product = new Product({
         title:product_name,
         price:product_price,
-        image_url:product_image_picker_base64,
+        image_url:product_image_url,
         description:product_description,
         user_id:req.user
     })
