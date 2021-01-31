@@ -22,15 +22,28 @@ exports.postAddProduct = (req, res, next) => {
         return res.redirect('/login')
     }
 
+    console.log("Entered POST ADD PRODUCT")
     const product_name = req.body.product_name;
     const product_price = parseFloat(req.body.product_price);
-    const product_image_url = req.body.product_image_url;
+    // const product_image_url = req.body.product_image_url;
+    const product_image_picker = req.file;
+    const product_image_picker_base64 = req.body.product_image_picker_base64;
     const product_description = req.body.product_description;
         // ,req.user._id
+    console.log("Image ",product_image_picker_base64)
+    if(!product_image_picker){
+        return res.status(422).render('admin/edit-product', {
+            pageTitle: 'Add Product',
+            path: '/admin/add-product',
+            editing:false,
+            invalidCredentials:true,
+            errorMessage:"Attached File is an Incorrect Format",
+        });
+    }
     const errors = validationResult(req);
 
     if (!errors.isEmpty()){
-        console.log(errors.array())
+        // console.log(errors.array())
         return res.status(422).render('admin/edit-product', {
             pageTitle: 'Add Product',
             path: '/admin/add-product',
@@ -39,10 +52,11 @@ exports.postAddProduct = (req, res, next) => {
             errorMessage:errors.array()[0].msg,
         });
     }
+    const product_image_url = product_image_picker.path
     const product = new Product({
         title:product_name,
         price:product_price,
-        image_url:product_image_url,
+        image_url:product_image_picker_base64,
         description:product_description,
         user_id:req.user
     })
@@ -52,6 +66,7 @@ exports.postAddProduct = (req, res, next) => {
         res.redirect(`/`);
     })
     .catch(err=>{
+        console.log("Entered POST ADD PRODUCT ERROR")
         const error = new Error(err);
         err.httpStatusCode = 500;
         return next(error);

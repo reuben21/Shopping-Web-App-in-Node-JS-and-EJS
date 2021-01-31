@@ -18,9 +18,9 @@ router.post('/add-product', [
         check('product_price')
             .isFloat().trim()
             .withMessage('Enter Correct Price'),
-        check('product_image_url')
-            .isURL().trim()
-            .withMessage('Enter A Correct Image URL'),
+        // check('product_image_url')
+        //     .isURL().trim()
+        //     .withMessage('Enter A Correct Image URL'),
         check('product_description')
             .isLength({min:10})
             .withMessage('Enter A Correct Description'),
