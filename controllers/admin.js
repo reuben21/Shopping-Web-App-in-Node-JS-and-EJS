@@ -52,7 +52,14 @@ exports.postAddProduct = (req, res, next) => {
         res.redirect(`/`);
     })
     .catch(err=>{
-        console.log(err)
+        const error = new Error(err);
+        err.httpStatusCode = 500;
+        return next(error);
+        // return res.status(500).render('404', {
+        //     pageTitle: 'Page Not Found',
+        //     path:"/404",
+        //     text_message:"505 Page Error"
+        // });
     });
     // products.push({
     //     title: req.body.product_name,
@@ -103,7 +110,9 @@ exports.getEditProduct = (req, res, next) => {
         })
 
     }).catch(err=>{
-        console.log(err)
+        const error = new Error(err);
+        err.httpStatusCode = 500;
+        return next(error);
     });
 
 };
@@ -145,7 +154,9 @@ exports.postEditProduct = (req, res, next) =>{
             res.redirect(`/admin/products`);
         })
         .catch(err=>{
-            res.redirect('/admin/products');
+            const error = new Error(err);
+            err.httpStatusCode = 500;
+            return next(error);
         });
 
 };
@@ -171,7 +182,9 @@ exports.getAllProducts = (req, res, next) => {
              });
        }
    ).catch(err => {
-       console.log(err);
+        const error = new Error(err);
+        err.httpStatusCode = 500;
+        return next(error);
    });
 
 }

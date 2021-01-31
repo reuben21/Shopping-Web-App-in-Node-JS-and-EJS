@@ -40,18 +40,6 @@ app.use(session({
 
 app.use(csrfProtection)
 
-app.use((req, res, next) => {
-
-    if (!req.session.user) {
-        return next();
-    }
-    User.findById(req.session.user._id)
-        .then(user => {
-            req.user = user;
-            next();
-        })
-        .catch(err => console.log(err));
-})
 
 app.use((req, res, next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
@@ -59,30 +47,41 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use((req, res, next) => {
+
+    if (!req.session.user) {
+        return next();
+    }
+    User.findById(req.session.user._id)
+        .then(user => {
+            if(!user){
+                return next();
+            }
+            req.user = user;
+            next();
+        })
+        .catch(err => {
+          next(new Error(err));
+        });
+})
+
+
 app.use('/admin', adminRoutes);
 
 app.use(shopRoutes);
 app.use(authRoutes);
+
+
+app.get('/500',errorController.get505)
 app.use(errorController.get404)
-// app.use = (req, res, next) => {
-//     res.status(404);
-//     res.render('error404', {
-//         pageTitle: 'Page Not Found',
-//     });
-// };
+
+
+app.use((error,req,res,next)=>{
+    res.redirect('/500')
+})
 
 mongoose.connect(MONGO_DB_URI)
     .then(res =>{
-        // const user = new User ({
-        //     name:'Reuben Coutinho',
-        //     email:"reuben211999@gmail.com",
-        //     password:'1234',
-        //     cart:{
-        //         items:[]
-        //     }});
-        //     user.save();
-
-
         app.listen(3000);
     }).catch(err =>{
     console.log(err);

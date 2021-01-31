@@ -70,4 +70,11 @@ Allow Editing Based on Authorization, So A User who has added the product will b
 <li>Adding A Custom Validation is also possible</li>
 <li>Custom Validation</li>
 <li>Using Sanitizers for Triming and Validation</li>
+<br> 
+<h3>Error Handling in Node Js </h3>
+
+<li>2xx -> Success </li>
+<li>3xx -> Redirect </li>
+<li>4xx -> Client Side Error Code </li>
+<li>5xx -> Server-Side Error Code </li>
 
