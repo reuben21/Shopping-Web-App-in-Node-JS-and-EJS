@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const Order = require('../models/Order');
-
+const fs = require('fs');
+const path = require('path');
 // exports.getProducts = (req, res, next) => {
 //     const products = Product.fetchAll();
 //     res.render('shop', {
@@ -161,11 +162,20 @@ exports.getCheckout = (req, res, next) => {
 
 exports.getInvoice = (req, res, next) => {
     const order_id = req.params.orderId;
-    const invoice_name = 'invoice-' +order_id + '.pdf'
-    res.render('shop/checkout', {
-        pageTitle: 'Checkout',
-        path: '/checkout',
-        isAuthenticated: req.session.isLoggedIn,
-        csrfToken: req.csrfToken()
-    });
+    const invoice_name = 'invoice-' + order_id + '.pdf'
+    const invoicePath = path.join('data', 'invoices', invoice_name);
+    fs.readFile(invoicePath, (err, data) => {
+        if (err) {
+            console.log(err)
+            return next(err);
+        }
+        res.setHeader('Content-Type', 'application/pdf');
+        res.send(data);
+    })
+    // res.render('shop/checkout', {
+    //     pageTitle: 'Checkout',
+    //     path: '/checkout',
+    //     isAuthenticated: req.session.isLoggedIn,
+    //     csrfToken: req.csrfToken()
+    // });
 }
