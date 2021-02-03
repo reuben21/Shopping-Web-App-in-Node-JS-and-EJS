@@ -49,18 +49,18 @@
                         <input type="text" placeholder="Product Price" value="<% if (editing){ %> <%= product.price   %> <% } else {} %>" name="product_price" class="form-control" aria-label="Sizing example input"
                                aria-describedby="inputGroup-sizing-default">
                     </div>
-<!--                    <div class="input-group mb-3">-->
-<!--                        <input type="text" placeholder="Image URL" value="<% if (editing){ %> <%= product.image_url   %> <% } else {} %>" name="product_image_url" class="form-control" aria-label="Sizing example input"-->
-<!--                               aria-describedby="inputGroup-sizing-default">-->
-<!--                    </div>-->
                     <div class="input-group mb-3">
-                        <input type="file" placeholder="Image URL"
-                               id="drop-area"
-                               name="product_image_picker"
-                               class="form-control"
-                               aria-label="Sizing example input"
+                        <input type="text" placeholder="Image URL" value="<% if (editing){ %> <%= product.image_url   %> <% } else {} %>" name="product_image_url" class="form-control" aria-label="Sizing example input"
                                aria-describedby="inputGroup-sizing-default">
                     </div>
+<!--                    <div class="input-group mb-3">-->
+<!--                        <input type="file" placeholder="Image URL"-->
+<!--                               id="drop-area"-->
+<!--                               name="product_image_picker"-->
+<!--                               class="form-control"-->
+<!--                               aria-label="Sizing example input"-->
+<!--                               aria-describedby="inputGroup-sizing-default">-->
+<!--                    </div>-->
 <!--                    <input type="hidden" id="product_image_picker_base64" name="product_image_picker_base64">-->
                     <div class="input-group mb-3">
                         <textarea placeholder="Description" name="product_description" class="form-control" rows="5"

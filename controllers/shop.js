@@ -157,3 +157,15 @@ exports.getCheckout = (req, res, next) => {
         csrfToken: req.csrfToken()
     });
 }
+
+
+exports.getInvoice = (req, res, next) => {
+    const order_id = req.params.orderId;
+    const invoice_name = 'invoice-' +order_id + '.pdf'
+    res.render('shop/checkout', {
+        pageTitle: 'Checkout',
+        path: '/checkout',
+        isAuthenticated: req.session.isLoggedIn,
+        csrfToken: req.csrfToken()
+    });
+}

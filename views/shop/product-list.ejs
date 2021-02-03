@@ -8,16 +8,32 @@
                 justify-content: space-evenly;
                 align-items: center;
 flex-wrap: wrap;">
+    <% function isValidHttpUrl(string) {
+      let url;
 
+      try {
+        url = new URL(string);
+      } catch (_) {
+        return false;
+      }
+
+      return url.protocol === "http:" || url.protocol === "https:";
+    } %>
     <% if (prods.length > 0) { %>
     <% for (let product of prods) { %>
       <a href="/products/<%= product._id  %> " style="text-decoration: none;color: #52057b;" >
 
 
     <div class="card" style="width: 18rem;">
-      <img src="<%= product.image_url %> " class="card-img-top rounded mx-auto d-block"
-        alt="..." style="width: 290px;height: 200px;object-fit: fill;
-                        ">
+      <% if (isValidHttpUrl(product.image_url)) { %>
+        <img src="<%= product.image_url %> " class="card-img-top"
+             alt="..." style="width: 290px;height: 200px;object-fit: fill;
+        ">
+      <% } else {%>
+        <img src="/<%= product.image_url %> " class="card-img-top"
+             alt="..." style="width: 290px;height: 200px;object-fit: fill;
+        ">
+      <% } %>
       <div class="card-body" style="
       display:flex;
       justify-content:center;
