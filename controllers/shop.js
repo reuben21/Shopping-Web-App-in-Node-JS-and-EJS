@@ -3,6 +3,8 @@ const Order = require('../models/Order');
 const fs = require('fs');
 const path = require('path');
 const PDFDocument = require('pdfkit');
+
+const ITEMS_PER_PAGE = 3
 // exports.getProducts = (req, res, next) => {
 //     const products = Product.fetchAll();
 //     res.render('shop', {
@@ -14,17 +16,21 @@ const PDFDocument = require('pdfkit');
 // }
 
 exports.getProducts = (req, res, next) => {
-    Product.find().then(
-        products => {
-            res.render('shop/product-list', {
-                prods: products,
-                pageTitle: 'Shop',
-                path: '/products'
+    const page = req.query.page;
+    console.log("GET PRODUCTS", page)
+    Product.find()
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .then(
+            products => {
+                res.render('shop/product-list', {
+                    prods: products,
+                    pageTitle: 'Shop',
+                    path: '/products'
 
 
-            });
-        }
-    ).catch(err => {
+                });
+            }
+        ).catch(err => {
         const error = new Error(err);
         err.httpStatusCode = 500;
         return next(error);
@@ -48,16 +54,28 @@ exports.getSingleProduct = (req, res, next) => {
 
 }
 exports.getIndex = (req, res, next) => {
-    Product.find().then(
-        products => {
-            res.render('shop/product-list', {
-                prods: products,
-                pageTitle: 'Shop',
-                path: '/products'
+    const page = req.query.page;
 
-            });
-        }
-    ).catch(err => {
+    Product.find().count().then().catch(err => {
+        const error = new Error(err);
+        err.httpStatusCode = 500;
+        return next(error);
+    })
+
+    Product.find()
+        .skip((page -1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE)
+        .then(
+            products => {
+                res.render('shop/index', {
+                    prods: products,
+                    pageTitle: 'Shop',
+                    path: '/'
+
+
+                });
+            }
+        ).catch(err => {
         const error = new Error(err);
         err.httpStatusCode = 500;
         return next(error);
