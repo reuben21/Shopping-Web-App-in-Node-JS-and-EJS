@@ -33,20 +33,27 @@ flex-wrap: wrap;">
                         </div>
                     </div>
                 </a>
-            <%   } %>
-        <% } else {  %>
+            <% } %>
+        <% } else { %>
             <h1>No Products Found</h1>
-        <%   } %>
+        <% } %>
     </div>
 </main>
 <div style="display: flex;align-content: center;justify-content: center;">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="/?page=1">1</a></li>
-            <li class="page-item"><a class="page-link" href="/?page=2">2</a></li>
-            <li class="page-item"><a class="page-link" href="/?page=3">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <% if (hasPreviousPage) { %>
+                <li class="page-item"><a class="page-link"style="background-color: #52057b !important;color: white;" href="/?page=<%= previousPage %>">Previous</a></li>
+            <% } %>
+                <% if (currentPage !== 1) { %>
+                <li class="page-item"><a class="page-link"style="background-color: #52057b !important;color: white;" href="/?page=1">1</a></li>
+
+                <% } %>
+            <li class="page-item" ><a class="page-link" style="background-color: #52057b !important;color: white;" href="/?page=<%=currentPage%>"><%=currentPage%></a></li>
+            <% if (hasNextPage) { %>
+                <li class="page-item"><a class="page-link" style="background-color: #52057b !important;color: white;" href="/?page=<%= nextPage %>">Next</a></li>
+            <% } %>
+
         </ul>
     </nav>
 </div>

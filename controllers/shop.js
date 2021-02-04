@@ -55,31 +55,38 @@ exports.getSingleProduct = (req, res, next) => {
 }
 exports.getIndex = (req, res, next) => {
     const page = req.query.page;
+    let total_items;
 
-    Product.find().count().then().catch(err => {
-        const error = new Error(err);
-        err.httpStatusCode = 500;
-        return next(error);
+    Product.find().countDocuments().then(num_of_products => {
+        total_items = num_of_products
+        return Product.find()
+            .skip((page - 1) * ITEMS_PER_PAGE)
+            .limit(ITEMS_PER_PAGE)
+            .then(
+                products => {
+                    res.render('shop/index', {
+                        prods: products,
+                        pageTitle: 'Shop',
+                        path: '/',
+                        total_products: total_items,
+                        currentPage: parseInt(page),
+                        hasNextPage: ITEMS_PER_PAGE * parseInt(page) < total_items,
+                        hasPreviousPage: parseInt(page) > 1,
+                        nextPage: parseInt(page) + 1,
+                        previousPage: parseInt(page) - 1,
+                        lastPage: Math.ceil(total_items / ITEMS_PER_PAGE)
+
+
+                    });
+                }
+            ).catch(err => {
+                const error = new Error(err);
+                err.httpStatusCode = 500;
+                return next(error);
+            });
     })
 
-    Product.find()
-        .skip((page -1) * ITEMS_PER_PAGE)
-        .limit(ITEMS_PER_PAGE)
-        .then(
-            products => {
-                res.render('shop/index', {
-                    prods: products,
-                    pageTitle: 'Shop',
-                    path: '/'
 
-
-                });
-            }
-        ).catch(err => {
-        const error = new Error(err);
-        err.httpStatusCode = 500;
-        return next(error);
-    });
 }
 
 exports.getCart = (req, res, next) => {
