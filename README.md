@@ -78,3 +78,12 @@ Allow Editing Based on Authorization, So A User who has added the product will b
 <li>4xx -> Client Side Error Code </li>
 <li>5xx -> Server-Side Error Code </li>
 
+<br> 
+<h3>File Upload and Download </h3>
+
+<li>Using Multer to Store Files Locally</li>
+<li>Streaming Files For implementing Invoice Feature</li>
+<li>Generating Dynamic PDFs using The Order Data</li>
+
+<br> 
+<h3>Implementing Pagination </h3>s
