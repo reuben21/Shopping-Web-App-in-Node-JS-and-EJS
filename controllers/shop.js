@@ -2,6 +2,7 @@ const Product = require('../models/product');
 const Order = require('../models/Order');
 const fs = require('fs');
 const path = require('path');
+const PDFDocument = require('pdfkit');
 // exports.getProducts = (req, res, next) => {
 //     const products = Product.fetchAll();
 //     res.render('shop', {
@@ -181,10 +182,86 @@ exports.getInvoice = (req, res, next) => {
         //     res.setHeader('Content-Disposition', 'inline; filename="' + invoice_name + '"');
         //     res.send(data);
         // })
-        const file = fs.createReadStream(invoicePath);
+        const pdfDoc = new PDFDocument();
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'inline; filename="' + invoice_name + '"');
-        file.pipe(res);
+
+        pdfDoc.pipe(fs.createWriteStream(invoicePath));
+        pdfDoc.pipe(res);
+        // pdfDoc.;
+        pdfDoc.font('Courier');
+        pdfDoc.fontSize(20).text('Invoice', {
+            underline: true,
+            align: 'center'
+        })
+        pdfDoc.moveDown(0.3);
+        pdfDoc.fontSize(12).text(`Name:- ${req.user.name}`, {
+            align: 'center'
+        })
+        pdfDoc.moveDown(0.3);
+        pdfDoc.fontSize(12).text(`Email-Id:- ${req.user.email}`, {
+            align: 'center'
+        })
+        pdfDoc.moveDown(0.3);
+        pdfDoc.text('\n---------------------------------------')
+
+        pdfDoc.moveDown(0.3);
+        let yPos = pdfDoc.y;
+        pdfDoc
+            .fontSize(15)
+            .text(`Product Name`, (x = 80), (y = yPos))
+            .text(`Quantity`, (x = 300), (y = yPos))
+            // .image(product.image, 320, 15, {fit: [100, 100]})
+            // .rect(320, 15, 100, 100)
+            // .stroke()
+            // .text('Fit', 320, 0)
+            .text(
+                `Price`,
+                (x = 475),
+                (y = yPos),
+                {align: 'right'}
+            );
+        pdfDoc.moveDown(0.3);
+        var total = 0;
+        order.products.forEach(product => {
+
+            total = total + product.product.price;
+            yPos = pdfDoc.y;
+            pdfDoc
+                .fontSize(15)
+
+                .text(`${product.product.title.trim()}`, (x = 80), (y = yPos))
+                .text(product.quantity, (x = 300), (y = yPos))
+                // .image(product.image, 320, 15, {fit: [100, 100]})
+                // .rect(320, 15, 100, 100)
+                // .stroke()
+                // .text('Fit', 320, 0)
+                .text(
+                    `${product.product.price}$`,
+                    (x = 475),
+                    (y = yPos),
+                    {align: 'right'}
+                );
+
+
+        })
+        pdfDoc.moveDown(0.3);
+        pdfDoc
+            .fontSize(15)
+            .text(`Total Price :`, (x = 80), (y = yPos + 50))
+            .font('Courier-Bold')
+            .text(`${total}$`, (x = 200), (y = yPos + 50))
+        ;
+
+        pdfDoc.end();
+
+        // res
+        //
+        //
+        // const file = fs.createReadStream(invoicePath);
+        // res.setHeader('Content-Type', 'application/pdf');
+        // res.setHeader('Content-Disposition', 'inline; filename="' + invoice_name + '"');
+        // file.pipe(res);
     }).catch(err => console.log(err));
 
     // res.render('shop/checkout', {

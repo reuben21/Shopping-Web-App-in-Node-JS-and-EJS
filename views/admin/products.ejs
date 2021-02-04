@@ -21,14 +21,14 @@ flex-wrap: wrap;">
     } %>
     <% if (prods.length > 0) { %>
       <% for (let product of prods) { %>
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem;border: 1px solid #892cdc;">
           <% if (isValidHttpUrl(product.image_url)) { %>
           <img src="<%= product.image_url %> " class="card-img-top"
-               alt="..." style="width: 290px;height: 200px;object-fit: fill;
+               alt="..." style="width: 285px;height: 200px;object-fit: fill;
         ">
             <% } else {%>
               <img src="<%= product.image_url %> " class="card-img-top"
-                   alt="..." style="width: 290px;height: 200px;object-fit: fill;
+                   alt="..." style="width: 285px;height: 200px;object-fit: fill;
         ">
             <% } %>
           <div class="card-body" style="

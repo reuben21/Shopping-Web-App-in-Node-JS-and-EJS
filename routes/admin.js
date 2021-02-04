@@ -13,7 +13,7 @@ router.get('/products',isAuth,adminController.getAllProducts);
 
 router.post('/add-product', [
         check('product_name')
-            .isLength({min:5})
+            .isLength({min:2})
             .withMessage('Enter A Correct Product Name'),
         check('product_price')
             .isFloat().trim()
