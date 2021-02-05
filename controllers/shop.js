@@ -3,7 +3,9 @@ const Order = require('../models/Order');
 const fs = require('fs');
 const path = require('path');
 const PDFDocument = require('pdfkit');
-
+const dotenv = require('dotenv');
+dotenv.config();
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 const ITEMS_PER_PAGE = 3
 // exports.getProducts = (req, res, next) => {
 //     const products = Product.fetchAll();
@@ -101,6 +103,8 @@ exports.getIndex = (req, res, next) => {
 }
 
 exports.getCart = (req, res, next) => {
+
+
     req.user
         .populate('cart.items.product_id')
         .execPopulate()
@@ -111,6 +115,7 @@ exports.getCart = (req, res, next) => {
             products.forEach(product => {
                 total += product.quantity + product.product_id.price;
             });
+
             res.render('shop/cart', {
                 pageTitle: 'Your Cart',
                 path: '/cart',
@@ -151,6 +156,8 @@ exports.getDeleteItemFromCart = (req, res, next) => {
 
 }
 exports.postOrders = (req, res, next) => {
+    let products;
+    let total = 0;
     req.user
         .populate('cart.items.product_id')
         .execPopulate()
@@ -192,22 +199,42 @@ exports.getOrders = (req, res, next) => {
 
 }
 exports.getCheckout = (req, res, next) => {
+    let products;
+    let total = 0;
+
     req.user
         .populate('cart.items.product_id')
         .execPopulate()
         .then(user => {
-            const products = user.cart.items;
-            var total = 0;
+            products = user.cart.items;
+            total = 0;
             products.forEach(product => {
-                total += product.quantity + product.product.price;
+                total += product.quantity + product.product_id.price;
             });
-            res.render('shop/checkout', {
-                pageTitle: 'Checkout',
-                path: '/checkout',
-                products: products,
-                totalSum: total
-            });
-        }).catch(err => {
+
+            return stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items: products.map(p => {
+                    return {
+                        name: p.product_id.title,
+                        amount: parseInt(p.product_id.price)*100,
+                        currency: 'inr',
+                        quantity: p.quantity,
+                    };
+                }),
+                success_url: req.protocol + '://' + req.get('host') + '/checkout/success',
+                cancel_url: req.protocol + '://' + req.get('host') + '/checkout/cancel',
+            })
+
+        }).then(session => {
+        res.render('shop/checkout', {
+            pageTitle: 'Checkout',
+            path: '/checkout',
+            products: products,
+            totalPrice: total,
+            sessionId: session.id
+        });
+    }).catch(err => {
             const error = new Error(err);
             err.httpStatusCode = 500;
             return next(error);

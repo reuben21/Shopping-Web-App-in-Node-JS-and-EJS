@@ -21,10 +21,12 @@ router.get('/checkout',isAuth,shopController.getCheckout);
 
 router.get('/orders',isAuth,shopController.getOrders);
 
-router.get('/postorders',isAuth,shopController.postOrders);
+// router.get('/postorders',isAuth,shopController.postOrders);
 // 6016ea7da6c9183698c81f5e
 router.get('/orders/invoices/:orderId',isAuth,shopController.getInvoice);
 
+router.get('/checkout/success',isAuth,shopController.postOrders)
+router.get('/checkout/cancel',isAuth,shopController.getCheckout)
 // router.get('/',isAuth,shopController.getInvoice);
 
 module.exports = router;
