@@ -24,6 +24,7 @@ h1,h4 {
     color:#bc6ff1 !important;
     text-decoration: none;
     font-weight: lighter;
+
 }
 
 .textColorChange:hover {
@@ -35,6 +36,7 @@ h1,h4 {
     color:white !important;
     text-decoration: none;
     font-weight: lighter;
+    border-top: 1px solid  #52057b;
 }
 .navbar-backgroundColor{
     background-color:#52057b;
