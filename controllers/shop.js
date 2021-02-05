@@ -16,8 +16,13 @@ const ITEMS_PER_PAGE = 3
 // }
 
 exports.getProducts = (req, res, next) => {
-    const page = req.query.page;
-    console.log("GET PRODUCTS", page)
+    var page;
+    page = req.query.page;
+
+    if(page === undefined) {
+        page =1
+
+    }
     Product.find()
         .skip((page - 1) * ITEMS_PER_PAGE)
         .then(
@@ -54,7 +59,13 @@ exports.getSingleProduct = (req, res, next) => {
 
 }
 exports.getIndex = (req, res, next) => {
-    const page = req.query.page;
+    var page;
+    page = req.query.page;
+
+    if(page === undefined) {
+        page =1
+
+    }
     let total_items;
 
     Product.find().countDocuments().then(num_of_products => {
