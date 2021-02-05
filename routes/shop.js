@@ -25,4 +25,6 @@ router.get('/postorders',isAuth,shopController.postOrders);
 // 6016ea7da6c9183698c81f5e
 router.get('/orders/invoices/:orderId',isAuth,shopController.getInvoice);
 
+// router.get('/',isAuth,shopController.getInvoice);
+
 module.exports = router;

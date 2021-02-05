@@ -4,7 +4,66 @@
 <body>
 
   <main>
+    <% if (products.length > 0) { %>
 
+      <div class="container" style="margin-top:30px;">
+        <div class="col align-self-center">
+          <h1> Your Cart</h1>
+          <table class="table table-hover table-borderless">
+            <%  products.forEach(p=>{ %>
+
+              <tr>
+
+                <td class="table-primary align-self-center">
+                  <a href="/products/<%= p.product_id._id %> " style="text-decoration: none;color: #52057b;" >
+
+                    <img src="<%= p.product_id.image_url %>" class="img-thumbnail" style="width:50px;height:50px;object-fit: cover;" alt="">
+                  </a>
+                </td>
+                <td class="table-secondary">
+                  <h6> Title: <%= p.product_id.title %> </h6>
+
+                </td>
+                <td class="table-success">
+                  <h6> Quantity: <%= p.quantity %> </h6>
+                  <a class="btn" style="
+                  color: #ffffff;
+                  background-color: #52057b;
+                  box-shadow: none;width:50px;
+                  " href="/cart-delete-item/<%= p.product_id._id %>">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABbklEQVRIS71V0VXDMBCTJgEmgE4AI8AEsAHtJLQTABNQNoAJaDdoJ1Gf+uzgOE7cAOHe80fsy+l0vpOJiY0Tx0cVQNIDgGsAV2E5p01Ya5LvQ0n2Aki6BfAE4LzCcgdgQXJd8isCSFoCeAw/7AH4+4OkM4cks7kBMAdwFvyWJBc5SAcgC+7MHLzXJBnETG0rkv5urAUQyvIWTmcx41ojBEZfwe8uLVcO4HqacjXzHDRhsiN5Ec8bgNAtzwD2JGsXWyQlKSbYsEgBXgDc/yT7iJaweCXp9v6eA0nukEsAJ9e+UCZ3l+9iQ3KWA+i4Qaasjns1K/0T9zrBpgT4yxJtSbpcrTuY/JKtPR6yVh/X6p+eD7apHROH3wxaa47+VyoCi1RJ5yRXQ2UaJXbJRKYgHn9/f2Zy7UfIyhllpaOkrS4qTKUv3YGj3vcR8Xthpqc/OFlnGMjLfW0psW2TJ7MYuKOmY9pxjG/10R8TrOR7ABtvwhk8/vv+AAAAAElFTkSuQmCC"/>
+
+                  </a>
+                </td>
+                <td class="table-danger">
+                  <h6> Price: $<%= p.product_id.price %> </h6>
+
+                </td>
+
+
+              </tr>
+
+
+
+
+
+
+            <% }) %>
+          </table>
+          <li class="list-group-item" aria-current="true">
+
+          </li>
+          </ul>
+          <a href="/postorders" class="btn btn-primary">Order Now</a>
+        </div>
+      </div>
+      <table class="table table-hover">
+
+      </table>
+
+    <% } else { %>
+      <h1>No Products in the Cart</h1>
+    <% } %>
 </main>
 
 <%- include('../includes/end.ejs') %>

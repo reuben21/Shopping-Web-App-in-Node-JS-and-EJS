@@ -107,11 +107,15 @@ exports.getCart = (req, res, next) => {
         .then(user => {
 
             const products = user.cart.items;
+            var total = 0;
+            products.forEach(product => {
+                total += product.quantity + product.product_id.price;
+            });
             res.render('shop/cart', {
                 pageTitle: 'Your Cart',
                 path: '/cart',
-                products: products
-                // totalPrice:cart.totalPrice
+                products: products,
+                totalPrice:total
             });
         }).catch(err => {
             const error = new Error(err);
@@ -188,12 +192,28 @@ exports.getOrders = (req, res, next) => {
 
 }
 exports.getCheckout = (req, res, next) => {
-    res.render('shop/checkout', {
-        pageTitle: 'Checkout',
-        path: '/checkout',
-        isAuthenticated: req.session.isLoggedIn,
-        csrfToken: req.csrfToken()
-    });
+    req.user
+        .populate('cart.items.product_id')
+        .execPopulate()
+        .then(user => {
+            const products = user.cart.items;
+            var total = 0;
+            products.forEach(product => {
+                total += product.quantity + product.product.price;
+            });
+            res.render('shop/checkout', {
+                pageTitle: 'Checkout',
+                path: '/checkout',
+                products: products,
+                totalSum: total
+            });
+        }).catch(err => {
+            const error = new Error(err);
+            err.httpStatusCode = 500;
+            return next(error);
+        }
+    );
+
 }
 
 
