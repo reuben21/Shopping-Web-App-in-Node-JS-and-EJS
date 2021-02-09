@@ -17,6 +17,9 @@ const ITEMS_PER_PAGE = 3
 //       });
 // }
 
+
+
+
 exports.getProducts = (req, res, next) => {
     var page;
     page = req.query.page;
