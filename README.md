@@ -90,3 +90,16 @@ Allow Editing Based on Authorization, So A User who has added the product will b
 
 <br> 
 <h3>REST API's Decoupling Frontend and Backend </h3>
+<li>Most Suitable Data Format is JSON data Format, Machine Readable and concise and can easily be converted to Javascript</li>
+<li>Uniform Interface - Clearly Defined API endpoints with clearly defined request + response data structure
+</li>
+<li>Stateless Interactions - Server and Client don't store any connection history, every request is handled separately</li>
+<ul>
+<li>GET </li>
+<li>POST</li>
+<li>PUT</li>
+<li>PATCH</li>
+<li>DELETE</li>
+<li>OPTIONS</li></li>
+
+</ul>
