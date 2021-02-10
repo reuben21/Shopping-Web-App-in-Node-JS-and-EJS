@@ -94,6 +94,8 @@ Allow Editing Based on Authorization, So A User who has added the product will b
 <li>Uniform Interface - Clearly Defined API endpoints with clearly defined request + response data structure
 </li>
 <li>Stateless Interactions - Server and Client don't store any connection history, every request is handled separately</li>
+
+<li>METHODS</li>
 <ul>
 <li>GET </li>
 <li>POST</li>
