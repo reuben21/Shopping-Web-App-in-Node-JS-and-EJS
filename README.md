@@ -86,4 +86,7 @@ Allow Editing Based on Authorization, So A User who has added the product will b
 <li>Generating Dynamic PDFs using The Order Data</li>
 
 <br> 
-<h3>Implementing Pagination </h3>s
+<h3>Implementing Pagination </h3>
+
+<br> 
+<h3>REST API's Decoupling Frontend and Backend </h3>
