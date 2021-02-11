@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-const Order = require('../models/Order');
+const Order = require('../models/order');
 const fs = require('fs');
 const path = require('path');
 const PDFDocument = require('pdfkit');
