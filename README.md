@@ -9,7 +9,7 @@
 </ol>
 
 <ol> The Admin Controlled Side 
-<li>The Add Products Page <br/>  <img width="70%" src=https://firebasestorage.googleapis.com/v0/b/projects-in-node-js.appspot.com/o/Shopping-App-In-EJS-Node-JS%2Fadd_product_page.png?alt=media&token=848d8723-8167-4201-b43c-0cca9f5695cd" alt=""></li>
+<li>The Add Products Page <br/>  <img width="70%" src="https://firebasestorage.googleapis.com/v0/b/projects-in-node-js.appspot.com/o/Shopping-App-In-EJS-Node-JS%2Fadd_product_page.png?alt=media&token=848d8723-8167-4201-b43c-0cca9f5695cd" alt=""></li>
 <li>The Products added By Admin <br/>  <img width="70%" src="https://firebasestorage.googleapis.com/v0/b/projects-in-node-js.appspot.com/o/Shopping-App-In-EJS-Node-JS%2Fproducts_added_by_admin.png?alt=media&token=1d4ecd4d-16a5-4216-bfcf-4a2c5dc72b48" alt=""></li>
 </ol>
 <h2>Following The MVC Pattern </h2> 
@@ -18,8 +18,8 @@
 <br> 
 - Product Model 
 - Cart Model
-<h3>View  - What the User Sees</h3> 
-<br> 
+ <h3>View  - What the User Sees</h3> 
+ <br> 
 <h3>Controller - Connects Model and View</h3> 
 - Admin Controller
 - Shop Controller
