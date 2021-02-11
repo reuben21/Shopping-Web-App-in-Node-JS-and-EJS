@@ -1,17 +1,25 @@
-<h1>Starting with Node JS</h1>
+<h1>A Basic Shopping Web Application </h1> 
 <br> 
-<h2>Creating a Node js web application </h2>  
-<br> 
-<h2>A Basic Shopping Web Application </h2> 
-<br> 
+<ol>
+<li>The Home Page with Pagination <br/> <img width="70%" src="https://firebasestorage.googleapis.com/v0/b/projects-in-node-js.appspot.com/o/Shopping-App-In-EJS-Node-JS%2FHomepage_after_login.png?alt=media&token=4d027bd6-8373-4ed5-8746-def08be59837" alt=""></li>
+<li>The Cart Page  <br/> <img width="70%" src="https://firebasestorage.googleapis.com/v0/b/projects-in-node-js.appspot.com/o/Shopping-App-In-EJS-Node-JS%2Fcurrent_items_in_cart.png?alt=media&token=722c8843-2392-43a5-8bc2-3df388cc7a07" alt=""></li>
+<li>The Order's Page  <br/> <img width="70%" src="https://firebasestorage.googleapis.com/v0/b/projects-in-node-js.appspot.com/o/Shopping-App-In-EJS-Node-JS%2Fprevious_orders.png?alt=media&token=d4a05374-563d-4d99-9dea-113c9b8f9602" alt=""></li>
+<li>The Payment Gateway Integration Page  <br/> <img width="70%" src="https://firebasestorage.googleapis.com/v0/b/projects-in-node-js.appspot.com/o/Shopping-App-In-EJS-Node-JS%2FPayment_integration_page.png?alt=media&token=4e507697-3dba-43f4-b55e-b33d923ae77c" alt=""></li>
+<li>The PDF Invoice, Created Dynamically with PDF kit <br/>  <img width="70%" src="https://firebasestorage.googleapis.com/v0/b/projects-in-node-js.appspot.com/o/Shopping-App-In-EJS-Node-JS%2Fpdf_invoice.png?alt=media&token=829fd682-4c0f-49db-8729-ad491d67d0e5" alt=""></li>
+</ol>
+
+<ol> The Admin Controlled Side 
+<li>The Add Products Page <br/>  <img width="70%" src=https://firebasestorage.googleapis.com/v0/b/projects-in-node-js.appspot.com/o/Shopping-App-In-EJS-Node-JS%2Fadd_product_page.png?alt=media&token=848d8723-8167-4201-b43c-0cca9f5695cd" alt=""></li>
+<li>The Products added By Admin <br/>  <img width="70%" src="https://firebasestorage.googleapis.com/v0/b/projects-in-node-js.appspot.com/o/Shopping-App-In-EJS-Node-JS%2Fproducts_added_by_admin.png?alt=media&token=1d4ecd4d-16a5-4216-bfcf-4a2c5dc72b48" alt=""></li>
+</ol>
 <h2>Following The MVC Pattern </h2> 
 <br> 
 <h3>Model - representing your data</h3> 
 <br> 
 - Product Model 
 - Cart Model
- <h3>View  - What the User Sees</h3> 
- <br> 
+<h3>View  - What the User Sees</h3> 
+<br> 
 <h3>Controller - Connects Model and View</h3> 
 - Admin Controller
 - Shop Controller
